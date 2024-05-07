@@ -1,0 +1,2 @@
+ERROR - 2022-09-08 22:41:10 --> Error connecting to the database: Access denied for user '****'@'localhost' (using password: YES)
+ERROR - 2022-09-08 22:47:24 --> Error connecting to the database: Access denied for user '****'@'localhost' (using password: YES)
