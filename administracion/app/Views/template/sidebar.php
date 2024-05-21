@@ -1,11 +1,7 @@
-<?php
-session_start();
-?>
-
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <div class="col-md-3 left_col" >
+            <div class="col-md-3 left_col menu_fixed">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="<?= base_url() ?>/home" class="site_title"><span>Dashboard</span></a>
@@ -28,14 +24,15 @@ session_start();
                         <div class="menu_section">
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li><a href="<?= base_url() ?>/home"><i class="fa fa-home"></i> Home </a>
+                                <li><a href="<?= base_url() ?>/home"><i class="fas fa-home"></i> Home </a>
                                 </li>
                                 <li><a href="<?= base_url() ?>/usuarios"><i class="fas fa-user-shield"></i> Usuarios </a>
                                 <li><a href="<?= base_url() ?>/categorias"><i class="fas fa-folder-plus"></i> Categorias </a>
                                 <li><a href="<?= base_url() ?>/marcas"><i class="fas fa-folder-plus"></i> Marcas </a>
                                 <li><a href="<?= base_url() ?>/productos"><i class="fas fa-tags"></i> Productos </a>
                                 <li><a href="<?= base_url() ?>/contactos"><i class="fas fa-address-card"></i> Detalle Contacto </a>
-                                <li><a><i class="fas fa-gear"></i>Configuración <span class="fa fa-chevron-down"></span></a>
+                                <li><a href="<?= base_url() ?>/paginas"><i class="fas fa-clone"></i> Páginas </a>
+                                <li><a><i class="fas fa-gear"></i> Configuración <span class="fas fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="<?= base_url() ?>/historia">Historia / frase</a></li>
                                         <li><a href="<?= base_url() ?>/carousel">Carousel</a></li>

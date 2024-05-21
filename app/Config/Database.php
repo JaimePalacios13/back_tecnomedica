@@ -27,6 +27,7 @@ class Database extends Config
 
     /**
      * The default database connection.
+     * Information about the store like: categorias, marcas, productos, proveedores, etc
      *
      * @var array
      */
@@ -36,6 +37,32 @@ class Database extends Config
         'username' => 'u735812367_tecnomedica',
         'password' => 'Tecnomedica2022',
         'database' => 'u735812367_tecnomedicaBet',
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => '',
+        'pConnect' => false,
+        'DBDebug'  => (ENVIRONMENT !== 'production'),
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_general_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 3306,
+    ];
+
+    /**
+     * The administracion database connection.
+     * Information about the administration like: usuarios, paginas del sitio web, contabilidad etc
+     *
+     * @var array
+     */
+    public $administracion = [
+        'DSN'      => '',
+        'hostname' => 'localhost',
+        'username' => 'u735812367_tecnomedica',
+        'password' => 'Tecnomedica2022',
+        'database' => 'u735812367_tecnomedicaBet_administracion',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

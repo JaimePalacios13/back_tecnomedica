@@ -124,3 +124,6 @@ nb-configuration.xml
 
 /results/
 /phpunit*.xml
+
+# SQL Sessions Files
+BD/tecnomedica.session.sql

@@ -40,6 +40,7 @@ $routes->get('home', 'HomeController::index');
 $routes->get('usuarios', 'UsuariosController::index');
 $routes->post('delete_user', 'UsuariosController::deleteUser');
 $routes->post('new_user', 'UsuariosController::nuevo_usuario');
+$routes->get('paginas', 'PaginasController::index');
 
 /* CATEGORIAS */
 $routes->get('categorias', 'CategoriasController::index');
