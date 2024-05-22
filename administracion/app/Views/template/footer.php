@@ -51,9 +51,14 @@
 <script src="<?=base_url()?>/assets/js/marcas.js"></script>
 <script src="<?=base_url()?>/assets/js/croppie.js"></script>
 <script src="<?=base_url()?>/assets/js/contacto.js"></script>
-<script src="<?= base_url() ?>/assets/js/historia.js"></script>
+<script src="<?=base_url()?>/assets/js/historia.js"></script>
 <script src="<?=base_url()?>/assets/js/carousel.js"></script>
 <script src="<?=base_url()?>/assets/js/productos.js"></script>
-</body>
+<?php 
+    if(isset($loadPaginasJS)){
+        echo '<script src="'.base_url().'/assets/js/paginas.js"></script>';
+    }
+?>
 
+</body>
 </html>

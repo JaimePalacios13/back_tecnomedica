@@ -32,7 +32,11 @@
                                                         <a class="btn btn-primary" href="'.$value['url'].'" target=”_blank”>
                                                             <i class="fas fa-folder"></i>
                                                             View
-                                                         </a>
+                                                        </a>
+                                                        <button type="button" class="btn btn-info" onClick="pageRedirect('.$value['id_pagina'].')" >
+                                                            <i class="fas fa-pencil"></i>
+                                                            Editar
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             ';

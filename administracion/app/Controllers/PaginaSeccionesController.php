@@ -2,21 +2,29 @@
 
 namespace App\Controllers;
 use App\Models\PaginasModel;
+use App\Models\PaginaSeccionesModel;
 
-class PaginasController extends BaseController
+class PaginaSeccionesController extends BaseController
 {
-    public function index()
+    public function index($idPagina)
     {
         try {
             $session = session();
             if(isset($_SESSION['sesion_activa'])){
                 $paginasModel = new PaginasModel();
-                $data['paginas'] = $paginasModel->getDataPage();
-                $data['loadPaginasJS'] = true;
+                $data['pagina'] = $paginasModel->getPage($idPagina);
+
+                $paginaSeccionesModel = new PaginaSeccionesModel();
+                $data['paginaSecciones'] = $paginaSeccionesModel->getDataPageSections();
+                
+                if(!isset($data['pagina'])){
+                    header("Location:".base_url()."/paginas");
+                    exit();
+                }
 
                 echo view('template/header');
                 echo view('template/sidebar');
-                echo view('dashboard/paginas', $data);
+                echo view('dashboard/pagina_secciones', $data);
                 echo view('template/footer');
             }else {
                 header("Location:".base_url());

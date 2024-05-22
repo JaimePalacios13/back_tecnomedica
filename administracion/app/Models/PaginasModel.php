@@ -13,7 +13,11 @@ class PaginasModel extends Model{
     ];
 
     public function getDataPage(){
-        $this->select('nombre, url');
+        $this->select('id_pagina, nombre, url');
         return $this->findAll();
+    }
+
+    public function getPage($idPagina){
+        return $this->find($idPagina);
     }
 }
