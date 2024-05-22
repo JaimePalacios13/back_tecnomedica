@@ -11,6 +11,7 @@ class ConfiguracionController extends BaseController
 {
 
     public $InicioModel = "";
+    public $CarouselModel = "";
 
     public function __construct()
     {
