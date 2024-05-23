@@ -41,10 +41,24 @@
                                 $contador = 0;
                                 foreach($paginaSecciones as $seccion){ 
                                     if($contador == 0){
-                                        echo '<div class="tab-pane fade active show" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">Home</div>';
+                                        echo '<div class="tab-pane fade active show" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">';
                                     } else{
-                                        echo '<div class="tab-pane fade" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">... content</div>'; 
+                                        echo '<div class="tab-pane fade" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">'; 
                                     }
+
+                                    echo 
+                                        '<form class="form-vertical form-label-left">
+                                            <div class="form-group row">
+                                                <label>Email address</label>
+                                                <input type="email" class="form-control" placeholder="Enter email">
+                                                <label>
+                                                    <input type="checkbox" value=""> Activo
+                                                </label>
+                                            </div>
+                                        </form>';
+
+                                    echo '</div>';
+                                    
                                     $contador++;
                                 }
                             ?>
