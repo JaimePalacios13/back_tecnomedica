@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Controllers;
-use App\Models\PaginasModel;
+namespace App\Controllers\Paginaweb;
+
+use App\Controllers\BaseController;
+use App\Models\Paginaweb\PaginasModel;
 
 class PaginasController extends BaseController
 {
@@ -16,7 +18,7 @@ class PaginasController extends BaseController
 
                 echo view('template/header');
                 echo view('template/sidebar');
-                echo view('dashboard/paginas', $data);
+                echo view('dashboard/paginaweb/paginas', $data);
                 echo view('template/footer');
             }else {
                 header("Location:".base_url());

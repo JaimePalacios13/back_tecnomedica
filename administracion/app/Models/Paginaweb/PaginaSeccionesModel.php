@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Paginaweb;
+
 use CodeIgniter\Model;
+
 class PaginaSeccionesModel extends Model{
 
     protected $table = 'pagina_seccion';

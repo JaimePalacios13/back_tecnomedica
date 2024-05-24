@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Controllers;
-use App\Models\PaginasModel;
-use App\Models\PaginaSeccionesModel;
-use App\Models\SeccionDetalleModel;
+namespace App\Controllers\Paginaweb;
+
+use App\Controllers\BaseController;
+use App\Models\Paginaweb\PaginasModel;
+use App\Models\Paginaweb\PaginaSeccionesModel;
+use App\Models\Paginaweb\SeccionDetalleModel;
 
 class PaginaSeccionesController extends BaseController
 {
@@ -36,7 +38,7 @@ class PaginaSeccionesController extends BaseController
 
                 echo view('template/header');
                 echo view('template/sidebar');
-                echo view('dashboard/pagina_secciones', $data);
+                echo view('dashboard/paginaweb/pagina_secciones', $data);
                 echo view('template/footer');
             }else {
                 header("Location:".base_url());
