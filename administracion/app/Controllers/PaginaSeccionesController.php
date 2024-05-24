@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\PaginasModel;
 use App\Models\PaginaSeccionesModel;
+use App\Models\SeccionDetalleModel;
 
 class PaginaSeccionesController extends BaseController
 {
@@ -15,8 +16,19 @@ class PaginaSeccionesController extends BaseController
                 $data['pagina'] = $paginasModel->getPage($idPagina);
 
                 $paginaSeccionesModel = new PaginaSeccionesModel();
-                $data['paginaSecciones'] = $paginaSeccionesModel->getDataPageSections();
-                
+                $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($idPagina);
+
+                $elementos = array();
+                $seccionDetalleModel = new SeccionDetalleModel();
+                foreach($data['secciones'] as $seccion){
+                    $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+                    foreach($seccionDetalle as $detalle){
+                        $elementos[] = $detalle;
+                    }
+                    
+                }
+                $data['elementos'] = $elementos;
+
                 if(!isset($data['pagina'])){
                     header("Location:".base_url()."/paginas");
                     exit();

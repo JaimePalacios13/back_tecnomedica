@@ -14,4 +14,10 @@ class PaginaSeccionesModel extends Model{
     public function getDataPageSections(){
         return $this->findAll();
     }
+
+    public function getDataPageSectionsByPage($idPage){
+        $this->where('id_pagina', $idPage);
+        return $this->findAll();
+    }
+
 }
