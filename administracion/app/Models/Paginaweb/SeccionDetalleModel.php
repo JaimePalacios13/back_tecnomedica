@@ -25,4 +25,10 @@ class SeccionDetalleModel extends Model{
         return $this->findAll();
     }
 
+    public function updateSectionsBatch(){
+        // $this->load->database('group_name');
+
+        
+    }  
+
 }

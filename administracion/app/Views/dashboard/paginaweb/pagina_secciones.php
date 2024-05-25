@@ -37,58 +37,61 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="tab-content" id="v-pills-tabContent">
-                                <?php 
-                                    $contador = 0;
-                                    foreach($secciones as $seccion){ 
-                                        if($contador == 0){
-                                            echo '<div class="tab-pane fade active show" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">';
-                                        } else{
-                                            echo '<div class="tab-pane fade" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">'; 
-                                        }
+                            <?php 
+                                $contadorSecciones = 0;
+                                $contadorElementos = 0;
 
-                                        foreach($elementos as $elemento){ 
-                                            if($elemento['id_seccion'] == $seccion['id_seccion'])
-                                            {
-                                                    helper('form');
-                                                    $attributes = ['class' => 'form-vertical', 'class' => 'form-label-left','id' => 'myform'];
-                                                    echo form_open('email/send', $attributes); 
-                                ?>
-                                                    <div class="form-group row">
-                                                        <?php 
-                                                            echo form_label($elemento['nombre']);
-
-                                                            $data = [
-                                                                'name'          => 'ta-'.$elemento['nombre'],
-                                                                'id'            => 'text-area-'.$elemento['id_detalle'],
-                                                                'value'         => $elemento['valor'],
-                                                                'maxlength'     => '350',
-                                                                'rows'          => "3",
-                                                                'required'      => true,
-                                                                'class'         => 'form-control',
-                                                                'placeholder'   =>$elemento['nombre'].'...',
-                                                            ];
-                                                            echo form_textarea($data);
-
-                                                            $data = [
-                                                                'name'    => 'cb-'.$elemento['nombre'],
-                                                                'id'      => 'checkbox-'.$elemento['id_detalle'],
-                                                                'value'   => 'accept',
-                                                                'checked' => $elemento['estado'] ? true : false,
-                                                            ];
-                                                            echo form_checkbox($data).' Activo';
-                                                        ?>
-                                                    </div>
-                                                </form>
-                                <?php
+                                helper('form');
+                                $attributes = ['class' => 'form-vertical', 'class' => 'form-label-left','id' => 'elementos_form'];
+                                echo form_open('pagina/secciones/update', $attributes); 
+                                    echo '<div class="tab-content" id="v-pills-tabContent">';
+                                        foreach($secciones as $seccion){ 
+                                            if($contadorSecciones == 0){
+                                                echo '<div class="tab-pane fade active show" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">';
+                                            } else{
+                                                echo '<div class="tab-pane fade" id="v-pills-'.$seccion['id_seccion'].'" role="tabpanel" aria-labelledby="v-pills-'.$seccion['id_seccion'].'-tab">'; 
                                             }
-                                        }
-                                        echo '</div>';
-                                        
-                                        $contador++;
-                                    }
-                                ?>
-                            </div>
+                                                        
+                                                    foreach($elementos as $elemento){ 
+                                                        if($elemento['id_seccion'] == $seccion['id_seccion'])
+                                                        {
+                                                            echo '<div class="form-group row">';
+
+                                                                echo form_label($elemento['nombre'].' (350 chars max)');
+
+                                                                $data = [
+                                                                    'name'          => 'elemento['.$contadorElementos.'][valor_elemento]',
+                                                                    'value'         => $elemento['valor'],
+                                                                    'maxlength'     => '350',
+                                                                    'rows'          => "3",
+                                                                    'class'         => 'form-control',
+                                                                    'placeholder'   =>$elemento['nombre'].'...',
+                                                                ];
+                                                                echo form_textarea($data);
+                            
+                                                                echo '<div class="form-check">';
+                                                                    $data = [
+                                                                        'name'    => 'elemento['.$contadorElementos.'][estado_elemento]',
+                                                                        'value'   => 'accept',
+                                                                        'checked' => $elemento['estado'] ? true : false,
+                                                                    ];
+                                                                    echo form_checkbox($data);
+                                                                    echo '<label class="form-check-label">Activo</label>';
+                                                                echo '</div>'; // Fin form-check
+
+                                                            echo '</div>'; // Fin form-group
+                                                            echo form_hidden('elemento['.$contadorElementos.'][id_elemento]', $elemento['id_detalle']);
+                                                            echo '<div class="clearfix"></div>';
+                                                            $contadorElementos++;
+                                                        }
+                                                    } // Fin foreach de elementos
+                                                echo '</div>'; // Fin tab-pane
+                                            $contadorSecciones++;
+                                        } // Fin foreach de secciones
+                                    echo '</div>'; // Fin tab-content
+                                echo form_submit();
+                                echo form_close();
+                            ?>
                         </div>
                     </div>
                     <div class="clearfix"></div>

@@ -9,6 +9,12 @@ use App\Models\Paginaweb\SeccionDetalleModel;
 
 class PaginaSeccionesController extends BaseController
 {
+    private SeccionDetalleModel $seccionDetalleModel;
+
+    public function __construct(){
+        $this->seccionDetalleModel = new SeccionDetalleModel();
+    }
+
     public function index($idPagina)
     {
         try {
@@ -21,9 +27,8 @@ class PaginaSeccionesController extends BaseController
                 $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($idPagina);
 
                 $elementos = array();
-                $seccionDetalleModel = new SeccionDetalleModel();
                 foreach($data['secciones'] as $seccion){
-                    $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+                    $seccionDetalle = $this->seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
                     foreach($seccionDetalle as $detalle){
                         $elementos[] = $detalle;
                     }
@@ -49,6 +54,28 @@ class PaginaSeccionesController extends BaseController
             echo view('exceptions/html/exception_general');
             var_dump($th);
         }   
+    }
+
+    public function update()
+    {
+        try {
+
+            $data = array();
+            foreach ($this->request->getPost('elemento') as $key => $element){
+                $data[] = array(
+                    'id_detalle' => $element['id_elemento'],
+                    'valor' => $element['valor_elemento'],
+                    'estado' => array_key_exists('estado_elemento', $element) ? 1 : 0
+                );
+            }
+                 
+            if ($this->seccionDetalleModel->updateBatch($data, 'id_detalle')) {
+                echo json_encode("success");
+            }
+
+        } catch (Exception $th) {
+            echo $th;
+        }
     }
 
 }
