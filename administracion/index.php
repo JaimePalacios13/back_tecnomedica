@@ -3,6 +3,9 @@
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
+use App\Exceptions\CustomExceptionHandler;
+
+
 /*
  *---------------------------------------------------------------
  * BOOTSTRAP THE APPLICATION
@@ -26,6 +29,9 @@ $paths = new Config\Paths();
 // Location of the framework bootstrap file.
 $bootstrap = rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
 $app       = require realpath($bootstrap) ?: $bootstrap;
+
+// Register the custom exception handler
+set_exception_handler([CustomExceptionHandler::class, 'handleException']);
 
 /*
  *---------------------------------------------------------------

@@ -10,6 +10,7 @@ use App\Models\Paginaweb\SeccionDetalleModel;
 class PaginaSeccionesController extends BaseController
 {
     private SeccionDetalleModel $seccionDetalleModel;
+    protected $helpers = ['form'];
 
     public function __construct(){
         $this->seccionDetalleModel = new SeccionDetalleModel();
@@ -37,9 +38,11 @@ class PaginaSeccionesController extends BaseController
                 $data['elementos'] = $elementos;
 
                 if(!isset($data['pagina'])){
-                    header("Location:".base_url()."/paginas");
+                    header("Location:".base_url()."paginas/");
                     exit();
                 }
+
+                $data['errors'] = [];
 
                 echo view('template/header');
                 echo view('template/sidebar');
@@ -50,9 +53,8 @@ class PaginaSeccionesController extends BaseController
                 exit();
             }
         }
-        catch (\Throwable $th) {
-            echo view('exceptions/html/exception_general');
-            var_dump($th);
+        catch (Exception $e) {
+            CustomExceptionHandler::handleException($e);
         }   
     }
 
@@ -69,13 +71,63 @@ class PaginaSeccionesController extends BaseController
                 );
             }
                  
-            if ($this->seccionDetalleModel->updateBatch($data, 'id_detalle')) {
-                echo json_encode("success");
-            }
-
-        } catch (Exception $th) {
-            echo $th;
+            throw new \InvalidArgumentException();
+            $this->seccionDetalleModel->updateBatch($data, 'id_detalle');
+            $this->upload();
         }
+        catch (\Exception $ex) {
+            echo view('template/sidebar');
+            echo view('exceptions/html/exception_general');
+            var_dump($ex);
+        }
+    }
+
+    public function upload()
+    {
+
+        $file = $this->request->getFile('userfile');
+        if (! $file->isValid()) {
+            if($file->getError() === 4) // Ningún archivo fue subido
+            {
+                echo json_encode("success-withoutImage");
+                return;
+            }
+        }
+
+        $validationRule = [
+            'userfile' => [
+                'label' => 'Image File',
+                'rules' => [
+                    'uploaded[userfile]',
+                    'is_image[userfile]',
+                    'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
+                    'max_size[userfile,100]',
+                    'max_dims[userfile,1024,768]',
+                ],
+            ],
+        ];
+
+        if (! $this->validate($validationRule)) {
+            $data = ['errors' => $this->validator->getErrors()];
+
+            return view('upload_form', $data);
+        }
+
+        $img = $this->request->getFile('userfile');
+
+        if (! $img->hasMoved()) {
+            $filepath = WRITEPATH . 'uploads/' . $img->store();
+
+            $data = ['uploaded_fileinfo' => new File($filepath)];
+
+            echo json_encode("success-withImage");
+            return;
+        }
+
+        $data = ['errors' => 'The file has already been moved.'];
+
+        
+        return view('upload_form', $data);
     }
 
 }

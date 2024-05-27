@@ -35,6 +35,7 @@ $routes->get('/', 'LoginController::index');
 $routes->post('verificar_datos', 'LoginController::login');
 $routes->get('logout', 'LoginController::cerrar_session');
 
+
 /* DASHBOARD */
 $routes->get('home', 'HomeController::index');
 $routes->get('usuarios', 'UsuariosController::index');

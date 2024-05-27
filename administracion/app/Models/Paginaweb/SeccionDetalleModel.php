@@ -24,11 +24,4 @@ class SeccionDetalleModel extends Model{
         $this->where('id_seccion', $idSection);
         return $this->findAll();
     }
-
-    public function updateSectionsBatch(){
-        // $this->load->database('group_name');
-
-        
-    }  
-
 }
