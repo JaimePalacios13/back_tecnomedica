@@ -73,17 +73,8 @@
                 <div class="collapse navbar-collapse" id="navbars-host">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="<?=base_url()?>">Home</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown-a"
-                                data-toggle="dropdown">Productos </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-a" style="background-color: #bdbdbd;">
-                                <?php foreach ($categorias as $categorias){?>
-                                    <?php if($categorias["id_categoria"] != 16){?>
-                                        <a class="dropdown-item text-white" href="<?=base_url()?>/categoria/<?=$categorias["id_categoria"];?>"><?=$categorias["nombre"];?></a>
-                                    <?php } ?>
-                                <?php } ?>
-                            </div>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/conozcanos">Conózcanos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Productos </a></li>
                         <li class="nav-item"><a class="nav-link"
                                 href="<?=base_url()?>/contactenos">Contactenos</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/categoria/16">Cuidados en casa</a></li>

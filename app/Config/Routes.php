@@ -36,6 +36,7 @@ $routes->get('contactenos', 'HomeController::contactenenos');
 $routes->get('categoria/(:any)', 'HomeController::categoriaShow/$1');
 $routes->get('Productos/detalle-producto/(:any)', 'HomeController::detalleProduct/$1');
 $routes->get('sendmail', 'HomeController::SendMail');
+$routes->get('conozcanos', 'ConozcanosController::index');
 
 /*
  * --------------------------------------------------------------------
