@@ -46,7 +46,8 @@
                                 $contadorElementos = 0;
                                 
                                 $attributes = ['class' => 'form-vertical', 'class' => 'form-label-left','id' => 'elementos_form'];
-                                echo form_open_multipart('pagina/secciones/update', $attributes); 
+                                echo form_open_multipart('', $attributes); 
+                                // echo '<form  class="form-label-left" id="elementos_form" enctype="multipart/form-data" method="post" accept-charset="utf-8">';
                                     echo '<div class="tab-content" id="v-pills-tabContent">';
                                         foreach($secciones as $seccion){ 
                                             if($contadorSecciones == 0){
@@ -81,8 +82,7 @@
                                                                     echo form_checkbox($data);
                                                                     echo '<label class="form-check-label">Activo</label>';
                                                                 echo '</div>'; // Fin form-check
-                                                                
-                                                            echo '<input type="file" name="userfile">';
+                                        
                                                             echo '</div>'; // Fin form-group
 
                                                             echo form_hidden('elemento['.$contadorElementos.'][id_elemento]', $elemento['id_detalle']);
@@ -94,7 +94,14 @@
                                             $contadorSecciones++;
                                         } // Fin foreach de secciones
                                     echo '</div>'; // Fin tab-content
-                                echo form_submit();
+                                echo '<input type="file" name="userfile">';
+                                echo '<button type="button" class="btn btn-primary" id="submitBtn">Actualizar secciones</button>';
+                                $data = [
+                                    'id' => 'submitBtn',
+                                    'value' => 'Actualizar secciones',
+                                    'class' => 'btn btn-primary'
+                                ];
+                                // echo form_submit($data);
                                 echo form_close();
                             ?>
                         </div>

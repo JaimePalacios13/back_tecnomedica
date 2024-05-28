@@ -9,26 +9,19 @@ class PaginasController extends BaseController
 {
     public function index()
     {
-        try {
-            $session = session();
-            if(isset($_SESSION['sesion_activa'])){
-                $paginasModel = new PaginasModel();
-                $data['paginas'] = $paginasModel->getDataPage();
-                $data['loadPaginasJS'] = true;
+        $session = session();
+        if(isset($_SESSION['sesion_activa'])){
+            $paginasModel = new PaginasModel();
+            $data['paginas'] = $paginasModel->getDataPage();
+            $data['loadPaginasJS'] = true;
 
-                echo view('template/header');
-                echo view('template/sidebar');
-                echo view('dashboard/paginaweb/paginas', $data);
-                echo view('template/footer');
-            }else {
-                header("Location:".base_url());
-                exit();
-            }
-        }
-        catch (\Throwable $th) {
-            echo view('exceptions/html/exception_general');
-            var_dump($th);
-        }   
+            echo view('template/header');
+            echo view('template/sidebar');
+            echo view('dashboard/paginaweb/paginas', $data);
+            echo view('template/footer');
+        }else {
+            header("Location:".base_url());
+            exit();
+        } 
     }
-
 }

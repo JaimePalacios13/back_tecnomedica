@@ -54,11 +54,7 @@
 <script src="<?=base_url()?>/assets/js/historia.js"></script>
 <script src="<?=base_url()?>/assets/js/carousel.js"></script>
 <script src="<?=base_url()?>/assets/js/productos.js"></script>
-<?php 
-    if(isset($loadPaginasJS)){
-        echo '<script src="'.base_url().'/assets/js/paginas.js"></script>';
-    }
-?>
-
+<?= isset($loadPaginasJS) ? '<script src="'.base_url().'/assets/js/paginaweb/paginas.js"></script>' : ''?>
+<?= isset($loadPaginaSeccionesJS) ? '<script src="'.base_url().'/assets/js/paginaweb/pagina_secciones.js"></script>' : ''?>
 </body>
 </html>
