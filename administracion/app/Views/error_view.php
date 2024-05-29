@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container text-center">
         <h1>Oops! Algo salió mal</h1>
         <p>Lo sentimos, pero algo salió mal mientras se procesaba tu petición.</p>
         <p>Por favor trata de nuevo más tarde, o contacta al soporte técnico si el error persiste.</p>

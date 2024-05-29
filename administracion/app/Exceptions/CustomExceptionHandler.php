@@ -23,8 +23,13 @@ class CustomExceptionHandler {
         }
         exit();
     }
-}
 
-// Register the custom exception handler
-set_exception_handler([CustomExceptionHandler::class, 'handleException']);
+    // Para manejar excepciones donde no se requiera una vista como en AJAX
+    public static function handleExceptionNoView(\Throwable $exception) {
+        // Log the exception details for debugging
+        log_message('error', $exception->getMessage());
+        log_message('debug', $exception->getTraceAsString());
+        exit();
+    }
+}
 ?>

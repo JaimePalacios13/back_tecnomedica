@@ -47,7 +47,6 @@
                                 
                                 $attributes = ['class' => 'form-vertical', 'class' => 'form-label-left','id' => 'elementos_form'];
                                 echo form_open_multipart('', $attributes); 
-                                // echo '<form  class="form-label-left" id="elementos_form" enctype="multipart/form-data" method="post" accept-charset="utf-8">';
                                     echo '<div class="tab-content" id="v-pills-tabContent">';
                                         foreach($secciones as $seccion){ 
                                             if($contadorSecciones == 0){
@@ -60,18 +59,29 @@
                                                         if($elemento['id_seccion'] == $seccion['id_seccion'])
                                                         {
                                                             echo '<div class="form-group row">';
+                                                            
+                                                                switch ($elemento['tipo']) {
+                                                                    case "file":
+                                                                        $attributes =[
+                                                                            'class' => 'w-100'
+                                                                        ];
+                                                                        echo form_label($elemento['nombre'],'',$attributes);
+                                                                        echo '<input type="file" name="images['.$elemento['id_detalle'].']">';
+                                                                        break;
+                                                                    // You can have any number of case statements
+                                                                    default:
+                                                                        echo form_label($elemento['nombre'].' (350 chars max)');
 
-                                                                echo form_label($elemento['nombre'].' (350 chars max)');
-
-                                                                $data = [
-                                                                    'name'          => 'elemento['.$contadorElementos.'][valor_elemento]',
-                                                                    'value'         => $elemento['valor'],
-                                                                    'maxlength'     => '350',
-                                                                    'rows'          => "3",
-                                                                    'class'         => 'form-control',
-                                                                    'placeholder'   =>$elemento['nombre'].'...',
-                                                                ];
-                                                                echo form_textarea($data);
+                                                                        $data = [
+                                                                            'name'          => 'elemento['.$contadorElementos.'][valor_elemento]',
+                                                                            'value'         => $elemento['valor'],
+                                                                            'maxlength'     => '350',
+                                                                            'rows'          => "3",
+                                                                            'class'         => 'form-control',
+                                                                            'placeholder'   =>$elemento['nombre'].'...',
+                                                                        ];
+                                                                        echo form_textarea($data);
+                                                                }
                             
                                                                 echo '<div class="form-check">';
                                                                     $data = [
@@ -82,10 +92,25 @@
                                                                     echo form_checkbox($data);
                                                                     echo '<label class="form-check-label">Activo</label>';
                                                                 echo '</div>'; // Fin form-check
-                                        
+                                                                
+                                                                if(isset($elemento['extras']))
+                                                                {
+                                                                    $extras = json_decode($elemento['extras'], true);
+                                                                    if(isset($extras['indicaciones'])){
+                                                                        echo '<div "class"="w-100">';
+                                                                            echo '<ul>';
+                                                                                foreach($extras['indicaciones'] as $key => $indicacion){
+                                                                                    echo '<li>'.$indicacion.'</li>';
+                                                                                }
+                                                                            echo '</ul>';
+                                                                        echo '</div>';   
+                                                                    }
+                                                                }
+                                                                
                                                             echo '</div>'; // Fin form-group
 
                                                             echo form_hidden('elemento['.$contadorElementos.'][id_elemento]', $elemento['id_detalle']);
+                                                            echo form_hidden('elemento['.$contadorElementos.'][tipo_elemento]', $elemento['tipo']);
                                                             echo '<div class="clearfix"></div>';
                                                             $contadorElementos++;
                                                         }
@@ -94,14 +119,7 @@
                                             $contadorSecciones++;
                                         } // Fin foreach de secciones
                                     echo '</div>'; // Fin tab-content
-                                echo '<input type="file" name="userfile">';
                                 echo '<button type="button" class="btn btn-primary" id="submitBtn">Actualizar secciones</button>';
-                                $data = [
-                                    'id' => 'submitBtn',
-                                    'value' => 'Actualizar secciones',
-                                    'class' => 'btn btn-primary'
-                                ];
-                                // echo form_submit($data);
                                 echo form_close();
                             ?>
                         </div>

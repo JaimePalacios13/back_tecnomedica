@@ -7,6 +7,7 @@ use App\Models\Paginaweb\PaginasModel;
 use App\Models\Paginaweb\PaginaSeccionesModel;
 use App\Models\Paginaweb\SeccionDetalleModel;
 use CodeIgniter\Files\File;
+use App\Exceptions\CustomExceptionHandler;
 
 class PaginaSeccionesController extends BaseController
 {
@@ -57,67 +58,93 @@ class PaginaSeccionesController extends BaseController
     }
 
     public function update()
-    {
+    { 
+        // Get the files
+        $files = $this->request->getFiles();
+
+         // Check if files are uploaded
+         if ($files) {
+            foreach ($files['images'] as $key => $image){
+                if($image->isValid()){
+                    $validationRule = [
+                        'images' => [
+                            'label' => 'images['.$key.']',
+                            'rules' => [
+                                'uploaded[images]',
+                                'is_image[images]',
+                                'mime_in[images,image/jpg,image/jpeg,image/gif,image/png]',
+                                    'max_size[images,150]',
+                                    'max_dims[images,455,243]',
+                                ],
+                            ],
+                    ];
+
+                    if (! $this->validate($validationRule)) {
+                        $data = ['errors' => $this->validator->getErrors()];
+            
+                        echo json_encode(var_dump($data));
+                        return;
+                    }
+
+                } else {
+                    echo json_encode($image->getErrorString());
+                    return;
+                }
+            }
+        } 
+
+        // Ingresa los datos del formulario
         $data = array();
         foreach ($this->request->getPost('elemento') as $key => $element){
-            $data[] = array(
-                'id_detalle' => $element['id_elemento'],
-                'valor' => $element['valor_elemento'],
-                'estado' => array_key_exists('estado_elemento', $element) ? 1 : 0
-            );
+
+            if ( $element['tipo_elemento'] == "file" ){
+                $data[] = array(
+                    'id_detalle' => $element['id_elemento'],
+                    'estado' => array_key_exists('estado_elemento', $element) ? 1 : 0
+                );
+            } else{
+                $data[] = array(
+                    'id_detalle' => $element['id_elemento'],
+                    'valor' => $element['valor_elemento'],
+                    'estado' => array_key_exists('estado_elemento', $element) ? 1 : 0
+                );
+            }
         }
         
+        
         $this->seccionDetalleModel->updateBatch($data, 'id_detalle');
-        //$this->upload();
+        if($files)
+        {
+            foreach ($files['images'] as $key => $image){
+                $this->upload_image($key, $image);
+            }
+            
+        }
         echo json_encode("success");
     }
 
-    public function upload()
+    public function upload_image($id_elemento, $image)
     {
-        $file = $this->request->getFile('userfile');
+        try{
+            $img = $image;
+            if (!$img->hasMoved()) {
+                // Move the file to the desired directory
+                $newName = $img->getRandomName();
+                $img->move('assets/upload/historia/', $newName);
 
-        if (!$file->isValid()) {
-            if($file->getError() === $this->errorNingunArchivo) 
-            {
-                echo json_encode("success-withoutImage");
-                return;
+                // Copia la nueva url de la imagen a la base de datos
+                $data = [
+                    'valor' => 'assets/upload/historia/'.$newName,
+                ];
+                $this->seccionDetalleModel->update($id_elemento, $data);
+
+            }else{
+                $data = ['errors' => 'Este archivo ya ha sido movido.'];
+                echo json_encode(var_dump($data));
             }
-        }
-
-        $validationRule = [
-            'userfile' => [
-                'label' => 'Image File',
-                'rules' => [
-                    'uploaded[userfile]',
-                    'is_image[userfile]',
-                    'mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
-                    'max_size[userfile,100]',
-                    'max_dims[userfile,1024,768]',
-                ],
-            ],
-        ];
-
-        if (! $this->validate($validationRule)) {
-            $data = ['errors' => $this->validator->getErrors()];
-
-            echo json_encode(var_dump($data));
-            return;
-        }
-
-        $img = $this->request->getFile('userfile');
-
-        if (! $img->hasMoved()) {
-            $filepath = WRITEPATH . 'uploads/' . $img->store();
-
-            $data = ['uploaded_fileinfo' => new File($filepath)];
-
-            echo json_encode("success-withImage");
-            return;
-        }
-
-        $data = ['errors' => 'Este archivo ya ha sido movido.'];
-        
-        echo json_encode(var_dump($data));
+        } catch(\Exception $e){
+            echo json_encode('Se presentó un error a la hora de subir la imagen. Revisar los logs para mayor detalle');
+            CustomExceptionHandler::handleExceptionNoView($e);
+        } 
     }
-
 }

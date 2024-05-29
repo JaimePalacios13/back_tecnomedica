@@ -11,22 +11,54 @@ $(document).ready(function() {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                // Serialize form data into an array of objects
-                var formData = $('#elementos_form').serializeArray();
+                var formData = new FormData();
 
-                // Display the serialized form data
-                // formData.forEach(function(field) {
-                //     console.log(field.name + ': ' + field.value);
-                // });
+                // Serialize form data excluding file inputs
+                var formArray = $('#elementos_form').serializeArray();
+
+                 // Append the serialized form data to the FormData object
+                 $.each(formArray, function(index, field) {
+                    formData.append(field.name, field.value);
+                });
+
+                // var fileInput = document.getElementById('userfile');
+    
+                // // var fileInput = $('input[name="userfile"]');
+                // var file = fileInput.files[0];
+                // formData.append('userfile', file);
+
+                // Append files to the FormData object
+                var fileInputs = $('input[type="file"]');
+                $.each(fileInputs, function(index, fileInput) {
+                    if (fileInput.files.length > 0) {
+                        $.each(fileInput.files, function(i, file) {
+                            formData.append(fileInput.name, file);
+                        });
+                    }
+                });
 
                 $.ajax({
-                    type: "POST",
                     url: baseURL + "pagina/secciones/update",
+                    type: "POST",
                     data: formData,
-                    dataType: "json",
+                    // dataType: "json",
+                    processData: false, // Prevent jQuery from automatically transforming the data into a query string
+                    contentType: false, // Prevent jQuery from setting Content-Type header
                     success: function(rsp) {
-                        console.log('rsp: ' + rsp);
-                        if (rsp == 'success') {
+
+                         // Check the response
+                        if (rsp !== 'success') {
+                                // Ensure rsp is a string
+                            rsp = String(rsp);
+
+                            // Remove leading and trailing quotes
+                            rsp = rsp.replace(/^"|"$/g, '');
+
+                            // Trim whitespace and convert to lowercase
+                            rsp = rsp.trim().toLowerCase();
+                        }
+
+                        if (rsp === 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Secciones actualizadas',
@@ -42,7 +74,8 @@ $(document).ready(function() {
                                 }
                             })
                         } else {
-                            alertError('Al parecer ocurrio un error, intenta de nuevo')
+                            alertError('Al parecer ocurrio un error, intenta de nuevo');
+                            console.debug(rsp);
                         }
                     },
                     error: function(xhr, status, error) {
