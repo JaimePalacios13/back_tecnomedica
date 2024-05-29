@@ -28,6 +28,7 @@ class ConozcanosController extends BaseController
         }
         $data['elementos'] = $elementos;
 
+
         echo view('head_foot/header');
         echo view('component/conozcanos',$data);
         echo view('head_foot/footer', $data);

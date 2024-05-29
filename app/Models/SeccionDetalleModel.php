@@ -21,7 +21,8 @@ class SeccionDetalleModel extends Model{
     }
 
     public function getDataSectionDetailBySection($idSection){
-        $this->where('id_seccion', $idSection);
-        return $this->findAll();
+        return $this->where('id_seccion', $idSection)
+                ->orderBy('id_detalle', 'asc')
+                ->findAll();
     }
 }
