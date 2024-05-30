@@ -9,7 +9,8 @@ class CategoriasModel extends Model{
     protected $allowedFields = [
         'nombre', 
         'descripcion', 
-        'fotografia'
+        'fotografia',
+        'estado'
     ];
 
     public function getDataCategorias(){

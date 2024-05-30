@@ -25,9 +25,11 @@
                                 <table id="tbl_categorias" class="display">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>#No</th>
                                             <th>Categoria</th>
                                             <th>Estado</th>
+                                            <th>Descripción</th>
+                                            <th>#Editar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,6 +47,19 @@
                                                     <td>'.$i.'</td>
                                                     <td>'.$value['nombre'].'</td>
                                                     <td>'.$estado.'</td>
+                                                    <td>'.$value['descripcion'].'</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit_category"
+                                                            onClick="fillForm(\''.$value['nombre'].'\', 
+                                                                                \''.$value['descripcion'].'\',
+                                                                                '.$value['estado'].',  
+                                                                                '.$value['id_categoria'].'
+                                                            )"
+                                                        >
+                                                            <i class="fas fa-pencil"></i>
+                                                            Editar
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                                 ';
                                                 $i++;
@@ -64,15 +79,34 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <h2>Crear nueva caracteristica</h2>
+                                                        <h2>Crear nueva categoría</h2>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-4">
                                                         <div class="form-group">
-                                                            <label for="categoria_input">Categoria</label>
-                                                            <input type="text" class="input_txt form-control"
-                                                                id="categoria_input">
+                                                            <label for="categoria_input">Nombre de la categoria</label>
+                                                            <input type="text" class="input_txt form-control" id="categoria_input">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="descripcion_input">Descripción de la categoria (300 chars max)</label>
+                                                            <textarea class="form-control" id="descripcion_input" maxlength="300", row="3">
+                                                            </textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="fotografia">Fotografia de la categoria</label>
+                                                            <input type="file" name="fotografia" id="fotografia">
+                                                            <p>Instrucciones:</p>
+                                                            <ul>
+                                                                <li>Se permite la subida de imágenes</li>
+                                                                <li>Extensiones permitidas: jpg,jpeg,gif y png</li>
+                                                                <li>Peso máximo: 150 KB</li>
+                                                                <li>Dimensiones máximas: 386x180</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="estado_input">Estado de la categoria</label>
+                                                            <input type="checkbox" id="estado_input">
                                                         </div>
                                                     </div>
                                                     <div class="col-2" style="margin-top:26px;">
@@ -91,3 +125,69 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="edit_category" tabindex="-1" role="dialog" aria-labelledby="edit_categoryLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="new_userLabel">Editar categoría</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre_category">Nombre</label>
+                                <input type="text" class="form-control" id="nombre_category" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion_category">Descripción de la categoria (300 chars max)</label>
+                                <textarea class="form-control" id="descripcion_category" maxlength="300", row="3">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="fotografia_category">Fotografia de la categoria</label>
+                                <input type="file" name="fotografia_category" id="fotografia_category">
+                                <p>Instrucciones:</p>
+                                <ul>
+                                    <li>Se permite la subida de imágenes</li>
+                                    <li>Extensiones permitidas: jpg,jpeg,gif y png</li>
+                                    <li>Peso máximo: 150 KB</li>
+                                    <li>Dimensiones máximas: 386x180</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="estado_category">
+                                <label class="form-check-label" for="estado_category">
+                                    Activo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="id_category" value="">
+                <button type="button" class="btn btn-primary" id="editar-category">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        // Rendered environment variables
+        const APP_ENVIROMENT = '<?= $appEnviroment ?>';
+</script>

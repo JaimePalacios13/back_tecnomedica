@@ -49,6 +49,7 @@ $routes->post('pagina/secciones/update', 'Paginaweb\PaginaSeccionesController::u
 /* CATEGORIAS */
 $routes->get('categorias', 'CategoriasController::index');
 $routes->post('nueva-categoria', 'CategoriasController::new');
+$routes->post('editar-categoria', 'CategoriasController::edit');
 
 /* MARCAS */
 $routes->get('marcas', 'MarcasController::index');
