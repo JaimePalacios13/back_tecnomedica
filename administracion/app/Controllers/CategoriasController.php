@@ -35,6 +35,7 @@ class CategoriasController extends BaseController
 
     public function new(){
         try {
+            $fotografia = '';
 
             // Check if the file is uploaded
             if (isset($_FILES['fotografia'])) {
@@ -142,7 +143,8 @@ class CategoriasController extends BaseController
 
     public function edit(){
         try {
-
+            $fotografia = '';
+            
             // Check if the file is uploaded
             if (isset($_FILES['fotografia_category'])) {
                 $image = $this->request->getFile('fotografia_category');

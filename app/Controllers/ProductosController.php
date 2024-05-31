@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Models\ContactoModel;
 use App\Models\PaginaSeccionesModel;
-use App\Models\SeccionDetalleModel;
+use App\Models\CategoriasModel;
+use App\Models\ContactoModel;
 
 class ProductosController extends BaseController
 {
@@ -12,21 +12,11 @@ class ProductosController extends BaseController
 
     public function index()
     {
+        $categoriasModel = new CategoriasModel();
         $ContactoModel = new ContactoModel();
-        $paginaSeccionesModel = new PaginaSeccionesModel();
-        $seccionDetalleModel = new SeccionDetalleModel();
 
+        $data['categorias'] = $categoriasModel->getCategoriasActivas();
         $data['contactos'] = $ContactoModel->getDataContacto();
-        $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
-
-        $elementos = array();
-        foreach($data['secciones'] as $seccion){
-            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-            foreach($seccionDetalle as $detalle){
-                $elementos[] = $detalle;
-            }
-        }
-        $data['elementos'] = $elementos;
 
         echo view('head_foot/header');
         echo view('component/productos',$data);

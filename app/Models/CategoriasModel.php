@@ -16,4 +16,9 @@ class CategoriasModel extends Model{
         $this->where('id_categoria',$idcate);
         return $this->findAll();
     }
+
+    public function getCategoriasActivas(){
+        $this->where('estado', 1);
+        return $this->findAll();
+    }
 }
