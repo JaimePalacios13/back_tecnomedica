@@ -184,13 +184,22 @@ class CategoriasController extends BaseController
             $estado = $_POST['estado'];
             $id = $_POST['id'];
             
-            $data = [
-                'nombre' => $categoria,
-                'descripcion' => $descripcion,
-                'estado' => $estado,
-                'fotografia' => $fotografia,
-                'id_categoria' => $id
-            ];
+            if($fotografia === ''){
+                $data = [
+                    'nombre' => $categoria,
+                    'descripcion' => $descripcion,
+                    'estado' => $estado,
+                    'id_categoria' => $id
+                ];
+            } else {
+                $data = [
+                    'nombre' => $categoria,
+                    'descripcion' => $descripcion,
+                    'estado' => $estado,
+                    'fotografia' => $fotografia,
+                    'id_categoria' => $id
+                ];
+            }
 
             if ($CategoriasModel->save($data)) {
                 echo json_encode("success");

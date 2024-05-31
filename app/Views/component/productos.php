@@ -12,7 +12,7 @@
                         <p class="card-text"><?=$categoria['descripcion']?></p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Ver productos</a>
+                        <a href="categoria/<?=$categoria['id_categoria']?>" class="btn btn-primary">Ver productos</a>
                     </div>
                 </div>
             </div>
