@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $('#tbl_categorias').DataTable();
+    APP_ENVIROMENT = "development";
     console.log('App ENVIROMENT:', APP_ENVIROMENT);
 });
 
