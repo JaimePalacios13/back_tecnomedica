@@ -55,13 +55,6 @@
                         <p class="h4 text-primary"><?=$product["nombre"];?></p>
                         </div>
                     </div>
-                    <p class="text-warning d-flex align-items-center mb-2">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </p>
                     <!-- <p class="mb-1">
                         <small>
                         <a href="#" class="text-secondary">Brands</a>
