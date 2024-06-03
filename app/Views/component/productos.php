@@ -6,13 +6,14 @@
         <?php foreach ($categorias as $categoria) {?>
             <div class="col">
                 <div class="card h-100 p-3">
-                    <img src="administracion/<?=$categoria['fotografia']?>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"><?=$categoria['nombre']?></h5>
-                        <p class="card-text"><?=$categoria['descripcion']?></p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="categoria/<?=$categoria['id_categoria']?>" class="btn btn-primary">Ver productos</a>
+                    <div class="image-container">
+                        <a href="categoria/<?=$categoria['id_categoria']?>">
+                            <img src="administracion/<?=$categoria['fotografia']?>" class="card-img-top" alt="..." style="width: 100%; display: block;">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"><?=$categoria['nombre']?></h5>
+                            <p class="card-text"><?=$categoria['descripcion']?></p>
+                        </div>
                     </div>
                 </div>
             </div>

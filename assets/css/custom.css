@@ -1,2 +1,10 @@
 
 /** ADD YOUR AWESOME CODES HERE **/
+
+/* image zoom effect */
+.image-container img {
+    transition: transform 0.3s ease-in-out;
+}
+.image-container img:hover {
+    transform: scale(1.1);
+}
