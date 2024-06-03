@@ -1,14 +1,8 @@
 <div id="overviews" class="section wb">
 	<div class="container">
-		<div class="section-title row text-center">
-			<div class="col-md-8 offset-md-2">
-				<p class="lead">
-					<?= $elementos[0]['estado'] === "1" ? $elementos[0]['valor'] : '' ?>	<!-- Frase -->
-				</p>
-			</div>
-		</div><!-- end title -->
 
 		<div class="row align-items-center">
+
 			<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
 				<div class="message-box">
 					<?php
@@ -44,35 +38,45 @@
 						}
 				?>	
 				</div><!-- end media -->
+
 			</div><!-- end col -->
 		</div> <!-- end row -->
 	</div><!-- end container -->
 </div><!-- end section -->
-<hr>
-<div class="hmv-box">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm col-md-6 col-12">
-				<div class="inner-hmv">
-					<div class="icon-box-hmv"><i class="flaticon-achievement"></i></div>
-					<h3>Misión</h3>
-					<div class="tr-pa">M</div>
-					<p style="text-align: justify;">
-						<?= $elementos[4]['valor'] ?>
-					</p>
-				</div>
-			</div>
-			<div class="col-sm col-md-6 col-12">
-				<div class="inner-hmv">
-					<div class="icon-box-hmv"><i class="flaticon-eye"></i></div>
-					<h3>Visión</h3>
-					<div class="tr-pa">V</div>
-					<p style="text-align: justify;">
-						<?= $elementos[5]['valor'] ?>
-					</p>
-				</div>
-			</div>
 
+
+<div class="container mb-20">
+	<div class="row">
+		<div class="col-sm col-md-6 col-12">
+			<div class="">
+				<div class="icon-box-hmv"><i class="flaticon-achievement"></i></div>
+				<h3>Misión</h3>
+				<div class="tr-pa">M</div>
+				<p style="text-align: justify;">
+					<?= $elementos[4]['valor'] ?>
+				</p>
+			</div>
 		</div>
+		<div class="col-sm col-md-6 col-12">
+			<div class="">
+				<div class="icon-box-hmv"><i class="flaticon-eye"></i></div>
+				<h3>Visión</h3>
+				<div class="tr-pa">V</div>
+				<p style="text-align: justify;">
+					<?= $elementos[5]['valor'] ?>
+				</p>
+			</div>
+		</div>
+
 	</div>
 </div>
+
+<hr>
+
+<div class="section-title row text-center mt-5">
+	<div class="col-md-8 offset-md-2">
+		<p class="lead">
+			<?= $elementos[0]['estado'] === "1" ? $elementos[0]['valor'] : '' ?>	<!-- Frase -->
+		</p>
+	</div>
+</div><!-- end section -->
