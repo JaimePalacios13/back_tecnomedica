@@ -1,20 +1,20 @@
-<div class="parallax section dbcolor">
-    <div class="container">
-        
-            <div class="row logos">
-                <div class="owl-carousel owl-theme">
-                    <?php foreach($marcas as $marca){?>    
-    	            <div class="item">
-                        <a href="#">
-                            <img src="<?=$marca['fotomarca']?>" alt="" class="img-repsonsive">
-                        </a>
+<?php if(isset($marcas)){ ?>
+    <div class="parallax section dbcolor">
+        <div class="container">
+                <div class="row logos">
+                    <div class="owl-carousel owl-theme">
+                        <?php foreach($marcas as $marca){?>    
+                        <div class="item">
+                            <a href="#">
+                                <img src="<?=$marca['fotomarca']?>" alt="" class="img-repsonsive">
+                            </a>
+                        </div>
+                        <?php }?>
                     </div>
-                    <?php }?>
-                </div>
-            </div><!-- end row -->
-       
-    </div><!-- end container -->
-</div><!-- end section -->
+                </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+<?php } ?>
 
 <footer class="footer">
     <div class="container">
