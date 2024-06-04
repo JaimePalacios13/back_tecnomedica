@@ -8,7 +8,7 @@
                 <div class="card h-100 p-3">
                     <div class="image-container">
                         <a href="categoria/<?=$categoria['id_categoria']?>">
-                            <img src="administracion/<?=$categoria['fotografia']?>" class="card-img-top" alt="..." style="width: 100%; display: block;">
+                            <img src="<?=base_url()?>/administracion/<?=$categoria['fotografia']?>" class="card-img-top" alt="..." style="width: 100%; display: block;">
                         </a>
                         <div class="card-body">
                             <h5 class="card-title"><?=$categoria['nombre']?></h5>
