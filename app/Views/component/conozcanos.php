@@ -34,7 +34,7 @@
 				<?php
 						if($elementos[3]['estado'] === "1")	// IMG nosotros/historia
 						{
-							echo '<img src="administracion/'.$elementos[3]['valor'].'" alt="" class="img-fluid img-rounded">';
+							echo '<img src="'.base_url().'/administracion/'.$elementos[3]['valor'].'" alt="" class="img-fluid img-rounded">';
 						}
 				?>	
 				</div><!-- end media -->
