@@ -2,20 +2,25 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
+                <div id="liveAlertPlaceholder"></div>
+                
                 <h2><b>Categorias</b></h2>
             </div>
         </div>
-
         <div class="row mt-3">
             <div class="col-12">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                            aria-controls="home" aria-selected="true"> categorias creadas </a>
+                            aria-controls="home" aria-selected="true"> Categorias creadas </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
                             aria-controls="profile" aria-selected="false"> Crear categoria </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="sort-tab" data-toggle="tab" href="#sort" role="tab"
+                            aria-controls="sort" aria-selected="false"> Ordenar categorías </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -120,6 +125,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="sort" role="tabpanel" aria-labelledby="sort-tab">
+                        <div class="row mt-4">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col">
+
+                                                        <p>Modica el orden en el que aparecen las categorías en la página web
+                                                            (página productos)
+                                                        </p>
+
+                                                        <!-- Simple List -->
+                                                        <ul id="simpleList" class="list-group">
+                                                            <?php foreach ($ordenCategorias as $categoria) 
+                                                                echo '<li class="list-group-item" data-id="'.$categoria['id_categoria'].'">'.$categoria['nombre']
+                                                                    .'</li>';
+                                                            ?>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- Fin sort tab -->
                 </div>
             </div>
         </div>

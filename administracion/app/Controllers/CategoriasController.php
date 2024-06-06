@@ -7,6 +7,11 @@ use App\Exceptions\CustomExceptionHandler;
 class CategoriasController extends BaseController
 {
     protected $helpers = ['form'];
+    private CategoriasModel $categoriasModel;
+
+    public function __construct(){
+        $this->categoriasModel = new categoriasModel();
+    }
     
     public function index()
     {
@@ -19,6 +24,7 @@ class CategoriasController extends BaseController
 
                 $data['categorias'] = $CategoriasModel->getDataCategorias();
                 $data['appEnviroment'] = $appUrl;
+                $data['ordenCategorias'] = $CategoriasModel->getOrdenCategorias();
 
                 echo view('template/header');
                 echo view('template/sidebar');
@@ -209,5 +215,23 @@ class CategoriasController extends BaseController
         } catch (\Throwable $th) {
             var_dump($th);
         }
+    }
+
+    public function edit_orden(){
+        
+        // Ingresa los datos del formulario
+        $data = array();
+
+        foreach ($this->request->getPost('order') as $key => $value){
+            $data[] = array(
+                'id_categoria' => (int)$value,
+                'orden' => $key
+            );
+        }
+
+        $this->categoriasModel->updateBatch($data, 'id_categoria');
+
+        echo json_encode("success");
+ 
     }
 }

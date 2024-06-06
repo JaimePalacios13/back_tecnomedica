@@ -1,7 +1,16 @@
 $(document).ready(function() {
     $('#tbl_categorias').DataTable();
-    APP_ENVIROMENT = "development";
+    var APP_ENVIROMENT = "development";
     console.log('App ENVIROMENT:', APP_ENVIROMENT);
+
+    // Simple list
+    Sortable.create(simpleList, { 
+        // Changed sorting within list
+        onUpdate: function (/**Event*/evt) {
+            order = this.toArray();
+            updateOrenCategorias(order);
+        },
+    });
 });
 
 $('#nueva-categoria').on('click', () => {
@@ -172,3 +181,41 @@ $('#editar-category').on('click', () => {
         }
     });
 })
+
+function updateOrenCategorias(order){
+    $.ajax({
+        type: "POST",
+        url: baseURL + "editar-orden-categorias",
+        data: {
+            order: order 
+        },
+        dataType: "json",
+        success: function(rsp) {
+            if (rsp === 'success') {
+                var alertMsg = "Orden de categorías actualizado con éxito";
+                appendAlert(alertMsg, 'success');
+            } else {
+                alertError(rsp)
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            var alertMsg = '<p>No se pudo actualizar el orden de las categorías.</p>';
+            alertMsg = alertMsg.concat('<p>Código del error: ', xhr.status, '</p>');
+            appendAlert(alertMsg, 'danger');
+        }
+    });
+}
+
+const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+const appendAlert = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    '   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>',
+    `   ${message}`,
+    '</div>'
+  ].join('')
+
+  alertPlaceholder.append(wrapper)
+}

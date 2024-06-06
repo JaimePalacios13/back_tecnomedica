@@ -10,11 +10,20 @@ class CategoriasModel extends Model{
         'nombre', 
         'descripcion', 
         'fotografia',
-        'estado'
+        'estado',
+        'orden'
     ];
 
     public function getDataCategorias(){
         $this->select('*');
         return $this->findAll();
     }
+
+    public function getOrdenCategorias(){
+        return $this->select('id_categoria, nombre')
+                ->where('estado', 1)
+                ->orderBy('orden', 'asc')
+                ->findAll();
+    }
+
 }
