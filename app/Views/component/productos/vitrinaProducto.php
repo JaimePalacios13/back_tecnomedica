@@ -19,8 +19,6 @@
                     </h3>
                     
                     <p>Por el momento no hay productos en la categoría seleccionada</p>
-                    
-                    <a href="../" class="link_404">Regresar</a>
                 </div>
                     </div>
                     </div>
@@ -72,6 +70,9 @@
                 </div>
             </div>
             <?php }?> 
+        </div>
+        <div class="row d-flex justify-content-center align-items-center">
+            <a href="../productos" class="link_404">Regresar</a>
         </div>
     </div>
 </div>
