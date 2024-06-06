@@ -21,4 +21,10 @@ class CategoriasModel extends Model{
         $this->where('estado', 1);
         return $this->findAll();
     }
+
+    public function getCategoriasActivasOrdenadas(){
+        return  $this->where('estado', 1)
+                ->orderBy('orden', 'asc')
+                ->findAll();
+    }
 }

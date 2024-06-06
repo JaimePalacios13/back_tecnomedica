@@ -15,7 +15,7 @@ class ProductosController extends BaseController
         $categoriasModel = new CategoriasModel();
         $ContactoModel = new ContactoModel();
 
-        $data['categorias'] = $categoriasModel->getCategoriasActivas();
+        $data['categorias'] = $categoriasModel->getCategoriasActivasOrdenadas();
         $data['contactos'] = $ContactoModel->getDataContacto();
 
         echo view('head_foot/header');
