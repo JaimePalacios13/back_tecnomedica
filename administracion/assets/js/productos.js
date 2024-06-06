@@ -1,3 +1,9 @@
+// A $( document ).ready() block.
+$( document ).ready(function() {
+    console.log( "ready!" );
+    init_sidebar();
+});
+
 document.querySelector(".btn-save-producto").addEventListener("click", () => {
     img = $("#input_path_img").val();
     console.log('uno'+img)

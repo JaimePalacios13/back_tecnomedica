@@ -25,6 +25,7 @@ class CategoriasController extends BaseController
                 $data['categorias'] = $CategoriasModel->getDataCategorias();
                 $data['appEnviroment'] = $appUrl;
                 $data['ordenCategorias'] = $CategoriasModel->getOrdenCategorias();
+                $data['loadCategoriasJS'] = true;
 
                 echo view('template/header');
                 echo view('template/sidebar');

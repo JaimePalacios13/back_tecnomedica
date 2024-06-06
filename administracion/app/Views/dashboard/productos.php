@@ -123,10 +123,23 @@
                                         <img src="" class="img-selection-upload" alt="">
                                         <input type="text" hidden value="" id="input_path_img">
                                     </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="catalogo">Seleccione un catálogo</label>
+                                            <input type="file" class="form-control-file" id="catalogo">
+                                            <p>Instrucciones:</p>
+                                            <ul>
+                                                <li>Se permite la subida de archivos</li>
+                                                <li>Extensiones permitidas: pdf</li>
+                                                <li>Peso máximo: 2 MB</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-6">
-
                                 <div class="form-group">
                                     <label for="marca">Descripción</label>
                                     <textarea class="form-control" name="" id="descripcion" cols="30" rows="10" placeholder="Descripción..."></textarea>
