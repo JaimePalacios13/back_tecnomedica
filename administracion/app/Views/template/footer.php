@@ -56,5 +56,8 @@
 <script src="<?=base_url()?>/assets/js/productos.js"></script>
 <?= isset($loadPaginasJS) ? '<script src="'.base_url().'/assets/js/paginaweb/paginas.js"></script>' : ''?>
 <?= isset($loadPaginaSeccionesJS) ? '<script src="'.base_url().'/assets/js/paginaweb/pagina_secciones.js"></script>' : ''?>
+<script src="<?=base_url()?>/assets/vendors/pnotify/dist/pnotify.js"></script>
+<script src="<?=base_url()?>/assets/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="<?=base_url()?>/assets/vendors/pnotify/dist/pnotify.nonblock.js"></script>
 </body>
 </html>

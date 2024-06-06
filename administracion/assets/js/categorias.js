@@ -192,8 +192,15 @@ function updateOrenCategorias(order){
         dataType: "json",
         success: function(rsp) {
             if (rsp === 'success') {
-                var alertMsg = "Orden de categorías actualizado con éxito";
-                appendAlert(alertMsg, 'success');
+                var alertMsg = "¡Orden de categorías actualizada con éxito!";
+    
+                new PNotify({
+                    title: 'Actualización exitosa',
+                    text: alertMsg,
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+
             } else {
                 alertError(rsp)
             }
@@ -202,20 +209,13 @@ function updateOrenCategorias(order){
             // Handle errors
             var alertMsg = '<p>No se pudo actualizar el orden de las categorías.</p>';
             alertMsg = alertMsg.concat('<p>Código del error: ', xhr.status, '</p>');
-            appendAlert(alertMsg, 'danger');
+            //appendAlert(alertMsg, 'danger');
+            new PNotify({
+                title: 'Actualización fallida',
+                text: alertMsg,
+                type: 'error',
+                styling: 'bootstrap3'
+            });
         }
     });
-}
-
-const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-const appendAlert = (message, type) => {
-  const wrapper = document.createElement('div')
-  wrapper.innerHTML = [
-    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-    '   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>',
-    `   ${message}`,
-    '</div>'
-  ].join('')
-
-  alertPlaceholder.append(wrapper)
 }
