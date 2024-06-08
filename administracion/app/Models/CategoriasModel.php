@@ -26,4 +26,10 @@ class CategoriasModel extends Model{
                 ->findAll();
     }
 
+    public function getNombreCategoriasActivas(){
+        return $this->select('id_categoria, nombre')
+                ->where('estado', 1)
+                ->findAll();
+    }
+
 }

@@ -45,17 +45,17 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.15/dist/sweetalert2.all.min.js"></script>
 <script src="<?=base_url()?>/assets/js/login.js"></script>
 <script src="<?=base_url()?>/assets/js/usuarios.js"></script>
-<?= isset($loadCategoriasJS) ? '<script src="'.base_url().'/assets/js/categorias.js"></script>' : ''?>
+<?= isset($loadCategoriasJS) ? '<script src="'.base_url().'/assets/js/categorias.js"></script>' : '' ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js" integrity="sha512-hAJgR+pK6+s492clbGlnrRnt2J1CJK6kZ82FZy08tm6XG2Xl/ex9oVZLE6Krz+W+Iv4Gsr8U2mGMdh0ckRH61Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="<?=base_url()?>/assets/js/mask.js"></script>
 <script src="<?=base_url()?>/assets/js/marcas.js"></script>
 <script src="<?=base_url()?>/assets/js/croppie.js"></script>
 <script src="<?=base_url()?>/assets/js/contacto.js"></script>
-<script src="<?=base_url()?>/assets/js/historia.js"></script>
-<script src="<?=base_url()?>/assets/js/carousel.js"></script>
-<script src="<?=base_url()?>/assets/js/productos.js"></script>
-<?= isset($loadPaginasJS) ? '<script src="'.base_url().'/assets/js/paginaweb/paginas.js"></script>' : ''?>
-<?= isset($loadPaginaSeccionesJS) ? '<script src="'.base_url().'/assets/js/paginaweb/pagina_secciones.js"></script>' : ''?>
+<?= isset($loadHistoriaJS) ? '<script src="'.base_url().'/assets/js/historia.js"></script>' : '' ?>
+<?= isset($loadCarouselJS) ? '<script src="'.base_url().'/assets/js/carousel.js"></script>' : '' ?>
+<?= isset($loadProductosJS) ? '<script src="'.base_url().'/assets/js/productos.js"></script>' : '' ?>
+<?= isset($loadPaginasJS) ? '<script src="'.base_url().'/assets/js/paginaweb/paginas.js"></script>' : '' ?>
+<?= isset($loadPaginaSeccionesJS) ? '<script src="'.base_url().'/assets/js/paginaweb/pagina_secciones.js"></script>' : '' ?>
 <script src="<?=base_url()?>/assets/vendors/pnotify/dist/pnotify.js"></script>
 <script src="<?=base_url()?>/assets/vendors/pnotify/dist/pnotify.buttons.js"></script>
 <script src="<?=base_url()?>/assets/vendors/pnotify/dist/pnotify.nonblock.js"></script>

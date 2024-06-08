@@ -50,7 +50,19 @@
     <!-- jsDelivr :: Sortable :: Latest (https://www.jsdelivr.com/package/npm/sortablejs) -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
+    <!-- Sentry install -->
+    <script src="https://js.sentry-cdn.com/4c3717ab13fcca0366ba1b3b89190d0e.min.js" crossorigin="anonymous"></script>
+
     <script>
         var baseURL = '<?= base_url() ?>/';
+        const env = '<?= env("CI_ENVIRONMENT") ?>';
+
+        
+        // Disable console debug, warn and error on production
+        if (env === 'production') {
+            console.debug = function () {};
+            console.log = function () {};
+            console.error = function () {};
+        }
     </script>
 </head>

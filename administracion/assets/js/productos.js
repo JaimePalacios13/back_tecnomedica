@@ -1,6 +1,10 @@
+//import * as Sentry from "@sentry/browser";
+
 // A $( document ).ready() block.
 $( document ).ready(function() {
     console.log( "ready!" );
+    
+    // Para iniciar el sidebar después que la tabla ha cargado todos los registros y no genera espacio en blanco extra
     init_sidebar();
 });
 
@@ -20,32 +24,62 @@ document.querySelector(".btn-save-producto").addEventListener("click", () => {
     } else if (img.length == 0) {
         alertError("Seleccione imagen");
     } else {
+
+        // Create a FormData object
+        var formData = new FormData();
+
+        // Append elements inputs to the FormData object
+        formData.append('nombre', $("#producto").val());
+        formData.append('id_categoria', $("#categoria").val());
+        formData.append('id_marca', $("#marca").val());
+        formData.append('descripcion', $("#descripcion").val());
+        formData.append('image', img);
+
+        // Append the file input to the FormData object
+        var fileInput = document.getElementById('catalogo');
+        if (fileInput.files.length > 0) {
+            formData.append('catalogo', fileInput.files[0]);
+        }
+
         $.ajax({
             type: "post",
             url: baseURL + "insert/producto",
-            data: {
-                nombre: $("#producto").val(),
-                id_categoria: $("#categoria").val(),
-                id_marca: $("#marca").val(),
-                descripcion: $("#descripcion").val(),
-                image: img,
-            },
-            dataType: "json",
-            success: function(response) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Enhorabuena",
-                    text: "EL producto se registro correctamente",
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    confirmButtonText: 'OK',
-                    allowEscapeKey: false,
-                    allowOutsideClick: false,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = 'productos'
-                    }
-                })
+            data: formData,
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Prevent jQuery from setting the content type
+            success: function(rsp) {
+                // Check the response
+                if (rsp !== 'success') {
+                    // Ensure rsp is a string
+                    rsp = String(rsp);
+
+                    // Remove leading and trailing quotes
+                    rsp = rsp.replace(/^"|"$/g, '');
+
+                    // Trim whitespace and convert to lowercase
+                    rsp = rsp.trim().toLowerCase();
+                }
+                if (rsp == 'success') {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Enhorabuena",
+                        text: "EL producto se registro correctamente",
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        confirmButtonText: 'OK',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'productos'
+                        }
+                    })
+                } else {
+                    alertError('Ocurrio un error al momento de crea una nueva categoria. Intente de nuevo')
+                    // if(APP_ENVIROMENT === "development"){
+                        console.debug(rsp);
+                    // }
+                }
             },
             error: function(data) {
                 console.log("error");
@@ -86,6 +120,17 @@ $("#image-productos").on("change", function() {
 });
 
 $(".btn-upload-image-producto").on("click", function(ev) {
+
+    var fileInput = document.getElementById('image-productos');
+    if (fileInput.files.length <= 0) {
+        new PNotify({
+            title: 'Acción requerida',
+            text: 'Seleccione una imagen primero antes de recortarla',
+            styling: 'bootstrap3'
+        });
+        return;
+    }
+
     resizeProducto.croppie("result", {
             type: "canvas",
             size: "viewport",
@@ -107,7 +152,7 @@ $(".btn-upload-image-producto").on("click", function(ev) {
                     var path = rsp.replace(/\\/g, "");
                     var image = baseURL + path;
                     image = image.replace(/"/g, "");
-                    console.log(image+' dos')
+                    console.log(image+' dos');
                     $(".btn-upload-image-producto").attr("hidden", true);
                     $(".btn-save-productos").removeAttr("hidden");
                     $("#input_path_img").val(image);
@@ -115,8 +160,17 @@ $(".btn-upload-image-producto").on("click", function(ev) {
                     /* $(".container-image").html(rsp); */
                     swal.close();
                 },
-                error: function(rsp){
-                    console.log(rsp)
+                error: function(err){
+                    swal.close();
+                    console.error(err);
+                    Sentry.captureException(err);
+
+                    new PNotify({
+                        title: 'Acción fallida',
+                        text: 'No se pudo recortar la imagen',
+                        type: 'error',
+                        styling: 'bootstrap3'
+                    });
                 }
             });
         });

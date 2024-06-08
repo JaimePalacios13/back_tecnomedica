@@ -12,7 +12,8 @@ class ProductosModel extends Model{
         "nombre",
         "descripcion",
         "fotografia",
-        "destacado"
+        "destacado",
+        "catalogo"
     ];
 
     public function updateDestacado($id,$estado){

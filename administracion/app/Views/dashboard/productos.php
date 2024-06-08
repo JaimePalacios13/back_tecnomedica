@@ -93,10 +93,9 @@
                                             <label for="categoria">Categoría</label>
                                             <select name="" class="form-control" id="categoria">
                                                 <option value="0"> Seleccione...</option>
-                                                <?php foreach ($categorias as $categoria) { ?>
+                                                <?php foreach ($nombreCategorias as $categoria) { ?>
                                                     <option value="<?= $categoria["id_categoria"] ?>"><?= $categoria["nombre"] ?></option>
                                                 <?php } ?>
-
                                             </select>
                                         </div>
                                     </div>

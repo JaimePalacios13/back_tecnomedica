@@ -11,6 +11,7 @@ class ProductosController extends BaseController
     public $ProductosModel;
     public $MarcasModel;
     public $CategoriasModel;
+    private $loadProductosJS = true;
 
     public function __construct()
     {
@@ -33,6 +34,8 @@ class ProductosController extends BaseController
 
                 $data['marcas'] = $this->MarcasModel->findAll();
                 $data['categorias'] = $this->CategoriasModel->findAll();
+                $data['nombreCategorias'] = $this->CategoriasModel->getNombreCategoriasActivas();
+                $data['loadProductosJS'] = $this->loadProductosJS;
 
                 echo view('template/header');
                 echo view('template/sidebar');
@@ -52,31 +55,57 @@ class ProductosController extends BaseController
 
 
     public function croppie(){
-        try {
-            $image = $_POST['image'];
-            
-            $img_array1 = explode(";",$image);
-            $img_array2 = explode(",",$img_array1[1]);
+        $image = $_POST['image'];
+        
+        $img_array1 = explode(";",$image);
+        $img_array2 = explode(",",$img_array1[1]);
 
-            $image = base64_decode($img_array2[1]);
+        $image = base64_decode($img_array2[1]);
 
-            $image_name = time().'.png';
+        $image_name = time().'.png';
 
-            $path =  $_SERVER['DOCUMENT_ROOT'].'/administracion/assets/upload/productos/'.$image_name;
+        $path =  $_SERVER['DOCUMENT_ROOT'].'/administracion/assets/upload/productos/'.$image_name;
 
-            file_put_contents($path, $image);
-            $img = '/assets/upload/productos/'.$image_name;
-            echo json_encode($img);
-        } catch (\Throwable $th) {
-            var_dump($th);
-            exit();
-        }
+        file_put_contents($path, $image);
+        $img = '/assets/upload/productos/'.$image_name;
+        echo json_encode($img);
     }
 
 
 
     public function insert(){
         try {
+            $urlCatalogo = '';
+
+            // Check if the file is uploaded
+            if (isset($_FILES['catalogo'])) {
+                $catalogo = $this->request->getFile('catalogo');
+                if($catalogo->isValid()){
+                    $validationRule = [
+                        'catalogo' => [
+                            'label' => 'catalogo',
+                            'rules' => [
+                                'uploaded[catalogo]',
+                                'ext_in[catalogo,pdf]',
+                                'max_size[catalogo,2000]',
+                                ],
+                            ],
+                    ];
+
+                    if (! $this->validate($validationRule)) {
+                        $data = ['errors' => $this->validator->getErrors()];
+            
+                        echo json_encode(var_dump($data));
+                        return;
+                    }
+
+                    //$fotografia = $this->upload_image($image);
+
+                } else {
+                    echo json_encode($catalogo->getErrorString());
+                    return;
+                }
+            } 
 
             $data= [
                 'nombre' => $this->request->getPost('nombre'),
