@@ -74,56 +74,53 @@ class ProductosController extends BaseController
 
 
     public function insert(){
-        try {
-            $urlCatalogo = '';
+        $urlCatalogo = ''; 
 
-            // Check if the file is uploaded
-            if (isset($_FILES['catalogo'])) {
-                $catalogo = $this->request->getFile('catalogo');
-                if($catalogo->isValid()){
-                    $validationRule = [
-                        'catalogo' => [
-                            'label' => 'catalogo',
-                            'rules' => [
-                                'uploaded[catalogo]',
-                                'ext_in[catalogo,pdf]',
-                                'max_size[catalogo,2000]',
-                                ],
+        // Check if the file is uploaded
+        if (isset($_FILES['catalogo'])) {
+            $catalogo = $this->request->getFile('catalogo');
+            if($catalogo->isValid()){
+                $validationRule = [
+                    'catalogo' => [
+                        'label' => 'catalogo',
+                        'rules' => [
+                            'uploaded[catalogo]',
+                            'ext_in[catalogo,pdf]',
+                            'max_size[catalogo,2000]',
                             ],
-                    ];
+                        ],
+                ];
 
-                    if (! $this->validate($validationRule)) {
-                        $data = ['errors' => $this->validator->getErrors()];
-            
-                        echo json_encode(var_dump($data));
-                        return;
-                    }
-
-                    //$fotografia = $this->upload_image($image);
-
-                } else {
-                    echo json_encode($catalogo->getErrorString());
+                if (! $this->validate($validationRule)) {
+                    $data = ['errors' => $this->validator->getErrors()];
+        
+                    echo json_encode(var_dump($data));
                     return;
                 }
-            } 
 
-            $data= [
-                'nombre' => $this->request->getPost('nombre'),
-                'id_categoria' => $this->request->getPost('id_categoria'),
-                'id_marca' => $this->request->getPost('id_marca'),
-                'descripcion' => $this->request->getPost('descripcion'),
-                'fotografia' => $this->request->getPost('image')
-            ];
+                $urlCatalogo = $this->upload_catalogo($catalogo);
+
+            } else {
+                echo json_encode($catalogo->getErrorString());
+                return;
+            }
+        } 
+
+        $data= [
+            'nombre' => $this->request->getPost('nombre'),
+            'id_categoria' => $this->request->getPost('id_categoria'),
+            'id_marca' => $this->request->getPost('id_marca'),
+            'descripcion' => $this->request->getPost('descripcion'),
+            'fotografia' => $this->request->getPost('image'),
+            'catalogo' => $urlCatalogo
+        ];
 
 /*             echo json_encode($data); */
 
-            if ($this->ProductosModel->insert($data)) {
-                echo json_encode('success');
-            }else{
-                echo json_encode('error');
-            }
-        } catch (\Throwable $th) {
-            var_dump($th);
+        if ($this->ProductosModel->insert($data)) {
+            echo json_encode('success');
+        }else{
+            echo json_encode('error');
         }
     }
 
@@ -139,6 +136,7 @@ class ProductosController extends BaseController
             //throw $th;
         }
     }
+
     public function destacarProducto(){
         try {
             $id = $this->request->getPost('idproducto');
@@ -156,6 +154,29 @@ class ProductosController extends BaseController
             }
         } catch (\Throwable $th) {
             var_dump($th);
+        }
+    }
+
+    public function upload_catalogo($catalogo)
+    {
+        $cat = $catalogo;
+        if (!$cat->hasMoved()) {
+            // Move the file to the desired directory
+            $newName = $cat->getRandomName();
+            $uploadDir = 'assets/upload/productos/catalogos/';
+
+            // Ensure the upload directory exists
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            $cat->move($uploadDir, $newName);
+
+            // Retorna la nueva url de la imagen para ser guardada en la base de datos
+            return $uploadDir.$newName;
+
+        }else{
+            $data = ['errors' => 'Este archivo ya ha sido movido.'];
+            echo json_encode(var_dump($data));
         }
     }
 }

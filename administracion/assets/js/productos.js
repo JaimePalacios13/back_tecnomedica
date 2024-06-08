@@ -1,5 +1,3 @@
-//import * as Sentry from "@sentry/browser";
-
 // A $( document ).ready() block.
 $( document ).ready(function() {
     console.log( "ready!" );
@@ -75,16 +73,16 @@ document.querySelector(".btn-save-producto").addEventListener("click", () => {
                         }
                     })
                 } else {
-                    alertError('Ocurrio un error al momento de crea una nueva categoria. Intente de nuevo')
-                    // if(APP_ENVIROMENT === "development"){
-                        console.debug(rsp);
-                    // }
+                    console.error(err);
+                    Sentry.captureException(err);
+                    alertError('Registro fallido. El producto no se pudo registrar.')
                 }
             },
-            error: function(data) {
-                console.log("error");
-                console.log(data);
-            },
+            error: function(err){
+                console.error(err);
+                Sentry.captureException(err);
+                alertError('Registro fallido. El producto no se pudo registrar.');
+            }
         });
     }
 });
