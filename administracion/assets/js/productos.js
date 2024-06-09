@@ -297,8 +297,171 @@ function destacar(estado, id){
                     } else {
                         alertError('Ocurrio un error al momento de actualizar un producto. Intente de nuevo')
                     }
-                }
+                },
             });
         }
     })
+}
+
+$('#editar-product').on('click', () => {
+    if (
+        $("#categoria_product").val() == 0 ||
+        $("#marca_product").val() == 0
+    ) {
+        alertError("Al parecer algunos campos estan vacios");
+        return;
+    } 
+  
+    var producto = $('#nombre_product').val();
+    var descripcion = $('#descripcion_product').val();
+    var idCategoria = $("#categoria_product").val();
+    var idMarca = $("#marca_product").val();
+    var estado = $('#estado_product').prop('checked') ? 1 : 0;
+    var id = $('#id_product').val();
+    
+    // Create a FormData object
+    var formData = new FormData();
+
+    // Append elements inputs to the FormData object
+    formData.append('producto', producto);
+    formData.append('descripcion', descripcion);
+    formData.append('id_categoria', idCategoria);
+    formData.append('id_marca', idMarca);
+    formData.append('estado', estado);
+    formData.append('id', id);
+
+    // Append the fotografia input to the FormData object
+    var fileInput = document.getElementById('fotografia_product');
+    console.info('Valor de fileInput de fotografia:');
+    console.debug(fileInput);
+    if (fileInput.files.length > 0) {
+        formData.append('fotografia', fileInput.files[0]);
+    }
+
+    // Append the catalogo input to the FormData object
+    var fileInput = document.getElementById('catalogo_product');
+    console.info('Valor de fileInput de fotografia:');
+    console.debug(fileInput);
+    if (fileInput.files.length > 0) {
+        formData.append('catalogo', fileInput.files[0]);
+    }
+
+    Swal.fire({
+        title: 'Espere...',
+        html: 'Insertando datos...',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading()
+        }
+    });
+    $.ajax({
+        type: "POST",
+        url: baseURL + "/editar-producto",
+        data: formData,
+        processData: false, // Prevent jQuery from processing the data
+        contentType: false, // Prevent jQuery from setting the content type
+        success: function(rsp) {
+            swal.close();
+
+            // Check the response
+            if (rsp !== 'success') {
+                // Ensure rsp is a string
+            rsp = String(rsp);
+
+            // Remove leading and trailing quotes
+            rsp = rsp.replace(/^"|"$/g, '');
+
+            // Trim whitespace and convert to lowercase
+            rsp = rsp.trim().toLowerCase();
+            }
+
+            if (rsp == 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Producto actualizado',
+                    text: 'Producto actualizado exitosamente',
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: 'OK',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'productos'
+                    }
+                })
+            } else {
+                swal.close();
+                console.error(rsp);
+                Sentry.captureException(rsp);
+
+                new PNotify({
+                    title: 'Acción fallida',
+                    text: 'No se pudo editar el producto',
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+        },
+        error: function(err){
+            swal.close();
+            console.error(err);
+            Sentry.captureException(err);
+
+            new PNotify({
+                title: 'Acción fallida',
+                text: 'No se pudo editar el producto',
+                type: 'error',
+                styling: 'bootstrap3'
+            });
+        }
+    });
+})
+
+function fillForm(id){
+
+    $.ajax({
+        type: "POST",
+        url: baseURL + "get-producto",
+        data: {
+            idproducto: id
+        },
+        dataType: "json",
+        success: function(rsp) {
+            console.info('Producto seleccionado: ');
+            console.debug(rsp);
+
+            if(rsp == null)
+            {
+                new PNotify({
+                    title: 'Acción fallida',
+                    text: 'No se encontró el producto seleccionado',
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+                return;
+            }
+            var producto = rsp;
+            $("#nombre_product").val(producto.nombre);
+            $("#descripcion_product").val(producto.descripcion);
+            $("#categoria_product").val(producto.id_categoria);
+            $("#marca_product").val(producto.id_marca);
+            $('#estado_product').prop('checked', (producto.estado === "1") ? true : false);
+            $("#id_product").val(producto.id_producto);
+        },
+        error: function(err){
+            swal.close();
+            console.error(err);
+            Sentry.captureException(err);
+
+            new PNotify({
+                title: 'Acción fallida',
+                text: 'No se pudo seleccionar el producto',
+                type: 'error',
+                styling: 'bootstrap3'
+            });
+        }
+    });
+   
 }

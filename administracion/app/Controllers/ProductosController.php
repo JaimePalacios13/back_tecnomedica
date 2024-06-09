@@ -12,6 +12,7 @@ class ProductosController extends BaseController
     public $MarcasModel;
     public $CategoriasModel;
     private $loadProductosJS = true;
+    protected $helpers = ['files'];
 
     public function __construct()
     {
@@ -27,7 +28,8 @@ class ProductosController extends BaseController
             $session = session();
             if(isset($_SESSION['sesion_activa'])){
                 $data['productos'] = $this->ProductosModel
-                ->select("*, producto.descripcion as producto_desc, categoria.nombre as categoria, producto.nombre as producto, producto.fotografia as foto_producto")
+                ->select("producto.descripcion as producto_desc, categoria.nombre as categoria, producto.nombre as producto, producto.fotografia as foto_producto,
+                             producto.catalogo as catalogo, producto.estado as estado, producto.id_producto as id_producto, producto.destacado as destacado")
                 ->join("marca","marca.idmarca = producto.id_marca")
                 ->join("categoria","categoria.id_categoria = producto.id_categoria")
                 ->findAll();
@@ -41,7 +43,6 @@ class ProductosController extends BaseController
                 echo view('template/sidebar');
                 echo view('dashboard/productos',$data);
                 echo view('template/footer');
-
             }else {
                 header("Location:".base_url());
                 exit();
@@ -76,7 +77,6 @@ class ProductosController extends BaseController
 
 
     public function insert(){
-        helper('files');
         $urlFotografia = null;
         $urlCatalogo = null;
 
@@ -219,5 +219,111 @@ class ProductosController extends BaseController
             $data = ['errors' => 'Este archivo ya ha sido movido.'];
             echo json_encode(var_dump($data));
         }
+    }
+
+    public function edit(){
+
+        $fotografia = null; 
+        $catalogo = null;
+        
+        // Check if the fotografia is uploaded
+        if (isset($_FILES['fotografia'])) {
+            $image = $this->request->getFile('fotografia');
+            if($image->isValid()){
+                $validationRule = [
+                    'fotografia' => [
+                        'label' => 'fotografia',
+                        'rules' => [
+                            'uploaded[fotografia]',
+                            'is_image[fotografia]',
+                            'mime_in[fotografia,image/jpg,image/jpeg,image/gif,image/png]',
+                                'max_size[fotografia,5000]',
+                                'max_dims[fotografia,5000,5000]',
+                            ],
+                        ],
+                ];
+
+                if (! $this->validate($validationRule)) {
+                    $data = ['errors' => $this->validator->getErrors()];
+        
+                    echo json_encode(var_dump($data));
+                    return;
+                }
+
+                $fotografia = upload_file($image,  'assets/upload/productos/');
+
+            } else {
+                echo json_encode($image->getErrorString());
+                return;
+            }
+        }
+
+        // Check if the catalogo is uploaded
+        if (isset($_FILES['catalogo'])) {
+            $catalogo = $this->request->getFile('catalogo');
+            if($catalogo->isValid()){
+                $validationRule = [
+                    'catalogo' => [
+                        'label' => 'catalogo',
+                        'rules' => [
+                            'uploaded[catalogo]',
+                            'ext_in[catalogo,pdf]',
+                            'max_size[catalogo,7500]',
+                            ],
+                        ],
+                ];
+
+                if (! $this->validate($validationRule)) {
+                    $data = ['errors' => $this->validator->getErrors()];
+        
+                    echo json_encode(var_dump($data));
+                    return;
+                }
+
+                $catalogo = upload_file($catalogo, 'assets/upload/productos/catalogos/');
+
+            } else {
+                echo json_encode($catalogo->getErrorString());
+                return;
+            }
+        } 
+        
+
+        // Ingresa los datos del formulario
+        $producto = $this->request->getPost('producto');
+        $descripcion = $this->request->getPost('descripcion');
+        $idCategoria = $this->request->getPost('id_categoria');
+        $idMarca = $this->request->getPost('id_marca');
+        $estado = $this->request->getPost('estado');
+        $id = $this->request->getPost('id');
+
+        $data = [
+            'nombre' => $producto,
+            'descripcion' => $descripcion,
+            'id_categoria' => $idCategoria,
+            'id_marca' => $idMarca,
+            'estado' => $estado,
+            'id_producto' => $id
+        ];
+
+        if(isset($fotografia)){
+            $data['fotografia'] = $fotografia;
+        }
+
+        if(isset($catalogo)){
+            $data['catalogo'] = $catalogo;
+        }
+        
+        if ($this->ProductosModel->save($data)) {
+            echo json_encode("success");
+        }else {
+            echo json_encode('error');
+        }
+    }
+
+    public function getProducto(){
+        $id = $this->request->getPost('idproducto');
+        $producto = $this->ProductosModel->find($id);
+        echo json_encode($producto);
     }
 }

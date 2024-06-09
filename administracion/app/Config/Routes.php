@@ -84,6 +84,8 @@ $routes->post('insert/producto', 'ProductosController::insert');
 $routes->post('recortar-img/producto', 'ProductosController::croppie');
 $routes->post('deleteProduct', 'ProductosController::deleteProduct');
 $routes->post('destacarProducto', 'ProductosController::destacarProducto');
+$routes->post('editar-producto', 'ProductosController::edit');
+$routes->post('get-producto', 'ProductosController::getProducto');
 
 
 
