@@ -7,11 +7,8 @@ $( document ).ready(function() {
 });
 
 document.querySelector(".btn-save-producto").addEventListener("click", () => {
-    img = $("#input_path_img").val();
-    console.log('uno'+img)
-    img = img.replace(/"/g, "");
-    console.log('dos'+img)
-
+    var fileInputFotografia = document.getElementById('fotografia');
+    
     if (
         $("#producto").val().length == 0 ||
         $("#categoria").val() == 0 ||
@@ -19,9 +16,11 @@ document.querySelector(".btn-save-producto").addEventListener("click", () => {
         $("#descripcion").val().length == 0
     ) {
         alertError("Al parecer algunos campos estan vacios");
-    } else if (img.length == 0) {
-        alertError("Seleccione imagen");
-    } else {
+    } 
+    else if (fileInputFotografia.files.length <= 0){
+        alertError("Al parecer no se ha seleccionado ninguna fotografía");
+    }
+    else {
 
         // Create a FormData object
         var formData = new FormData();
@@ -31,13 +30,25 @@ document.querySelector(".btn-save-producto").addEventListener("click", () => {
         formData.append('id_categoria', $("#categoria").val());
         formData.append('id_marca', $("#marca").val());
         formData.append('descripcion', $("#descripcion").val());
-        formData.append('image', img);
 
-        // Append the file input to the FormData object
+        // Append the fotografia input to the FormData object
+        formData.append('fotografia', fileInputFotografia.files[0]);
+
+        // Append the catalogo input to the FormData object
         var fileInput = document.getElementById('catalogo');
-        if (fileInput.files.length > 0) {
+        if (fileInput.files.length > 0){
             formData.append('catalogo', fileInput.files[0]);
         }
+        
+        Swal.fire({
+            title: 'Espere...',
+            html: 'Creando producto...',
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
 
         $.ajax({
             type: "post",
@@ -58,6 +69,7 @@ document.querySelector(".btn-save-producto").addEventListener("click", () => {
                     rsp = rsp.trim().toLowerCase();
                 }
                 if (rsp == 'success') {
+                    Swal.close();
                     Swal.fire({
                         icon: "success",
                         title: "Enhorabuena",
@@ -73,14 +85,16 @@ document.querySelector(".btn-save-producto").addEventListener("click", () => {
                         }
                     })
                 } else {
-                    console.error(err);
-                    Sentry.captureException(err);
+                    console.error(rsp);
+                    Sentry.captureException(rsp);
+                    Swal.close();
                     alertError('Registro fallido. El producto no se pudo registrar.')
                 }
             },
             error: function(err){
                 console.error(err);
                 Sentry.captureException(err);
+                Swal.close();
                 alertError('Registro fallido. El producto no se pudo registrar.');
             }
         });

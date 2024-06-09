@@ -41,6 +41,7 @@ class ProductosController extends BaseController
                 echo view('template/sidebar');
                 echo view('dashboard/productos',$data);
                 echo view('template/footer');
+
             }else {
                 header("Location:".base_url());
                 exit();
@@ -65,6 +66,7 @@ class ProductosController extends BaseController
         $image_name = time().'.png';
 
         $path =  $_SERVER['DOCUMENT_ROOT'].'/administracion/assets/upload/productos/'.$image_name;
+        
 
         file_put_contents($path, $image);
         $img = '/assets/upload/productos/'.$image_name;
@@ -74,9 +76,43 @@ class ProductosController extends BaseController
 
 
     public function insert(){
-        $urlCatalogo = ''; 
+        helper('files');
+        $urlFotografia = null;
+        $urlCatalogo = null;
 
-        // Check if the file is uploaded
+        // Check if the fotografia is uploaded
+        if (isset($_FILES['fotografia'])) {
+            $fotografia = $this->request->getFile('fotografia');
+            if($fotografia->isValid()){
+                $validationRule = [
+                    'fotografia' => [
+                        'label' => 'fotografia',
+                        'rules' => [
+                            'uploaded[fotografia]',
+                            'is_image[fotografia]',
+                            'mime_in[fotografia,image/jpg,image/jpeg,image/gif,image/png]',
+                            'max_size[fotografia,5000]',
+                            'max_dims[fotografia,5000,5000]',
+                            ],
+                        ],
+                ];
+
+                if (! $this->validate($validationRule)) {
+                    $data = ['errors' => $this->validator->getErrors()];
+        
+                    echo json_encode(var_dump($data));
+                    return;
+                }
+
+                $urlFotografia = upload_file($fotografia, 'assets/upload/productos/');
+
+            } else {
+                echo json_encode($fotografia->getErrorString());
+                return;
+            }
+        } 
+
+        // Check if the catalogo is uploaded
         if (isset($_FILES['catalogo'])) {
             $catalogo = $this->request->getFile('catalogo');
             if($catalogo->isValid()){
@@ -86,7 +122,7 @@ class ProductosController extends BaseController
                         'rules' => [
                             'uploaded[catalogo]',
                             'ext_in[catalogo,pdf]',
-                            'max_size[catalogo,2000]',
+                            'max_size[catalogo,7500]',
                             ],
                         ],
                 ];
@@ -111,7 +147,7 @@ class ProductosController extends BaseController
             'id_categoria' => $this->request->getPost('id_categoria'),
             'id_marca' => $this->request->getPost('id_marca'),
             'descripcion' => $this->request->getPost('descripcion'),
-            'fotografia' => $this->request->getPost('image'),
+            'fotografia' => $urlFotografia,
             'catalogo' => $urlCatalogo
         ];
 
@@ -138,10 +174,17 @@ class ProductosController extends BaseController
     }
 
     public function destacarProducto(){
-        try {
-            $id = $this->request->getPost('idproducto');
-            $destacado = $this->request->getPost('destacado');
 
+        $id = $this->request->getPost('idproducto');
+        $destacado = $this->request->getPost('destacado');
+
+        if($destacado == 0){
+            if ($this->ProductosModel->updateDestacado($id,$destacado)) {
+                echo json_encode('success');
+            }else {
+                echo json_encode('error');
+            }
+        } else{
             $cantDestacados = $this->ProductosModel->countDestacados();
             if (count($cantDestacados) < 5) {
                 if ($this->ProductosModel->updateDestacado($id,$destacado)) {
@@ -152,8 +195,6 @@ class ProductosController extends BaseController
             }else{
                 echo json_encode('mx');
             }
-        } catch (\Throwable $th) {
-            var_dump($th);
         }
     }
 

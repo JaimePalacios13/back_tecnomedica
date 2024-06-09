@@ -1,0 +1,7 @@
+/* *** Cambiar el tamaño maximo de subida de archivo en php *** */
+phpinfo() // identificar el archivo php.ini
+sudo vi /etc/php/8.3/fpm/php.ini
+upload_max_filesize = 7.5M // Cambiar el tamaño
+service --status-all // identificar el servicio correcto
+sudo service php8.3-fpm restart
+

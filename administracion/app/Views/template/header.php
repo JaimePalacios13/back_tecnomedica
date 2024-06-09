@@ -56,7 +56,9 @@
     <script>
         var baseURL = '<?= base_url() ?>/';
         const env = '<?= env("CI_ENVIRONMENT") ?>';
-
+        Sentry.init({
+            environment: env,
+        });
         
         // Disable console debug, warn and error on production
         if (env === 'production') {
