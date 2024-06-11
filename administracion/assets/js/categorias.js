@@ -1,9 +1,5 @@
 $(document).ready(function() {
     $('#tbl_categorias').DataTable();
-    var APP_ENVIROMENT = "development";
-    console.log('App ENVIROMENT:', APP_ENVIROMENT);
-
-    // Simple list
     Sortable.create(simpleList, { 
         // Changed sorting within list
         onUpdate: function (/**Event*/evt) {
@@ -81,10 +77,7 @@ $('#nueva-categoria').on('click', () => {
                         }
                     })
                 } else {
-                    alertError('Ocurrio un error al momento de crea una nueva categoria. Intente de nuevo')
-                    if(APP_ENVIROMENT === "development"){
-                        console.debug(rsp);
-                    }
+                    alertError('Ocurrio un error al momento de crea una nueva categoria. Intente de nuevo');
                 }
             }
         });
@@ -173,10 +166,7 @@ $('#editar-category').on('click', () => {
                     }
                 })
             } else {
-                alertError('Ocurrio un error al momento de crea una nueva categoria. Intente de nuevo')
-                if(APP_ENVIROMENT === "development"){
-                    console.debug(rsp);
-                }
+                alertError('Ocurrio un error al momento de crea una nueva categoria. Intente de nuevo');
             }
         }
     });
