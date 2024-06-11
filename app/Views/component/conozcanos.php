@@ -47,17 +47,17 @@
 
 <div class="container mb-20">
 	<div class="row">
-		<div class="col-sm col-md-6 col-12">
-			<div class="">
-				<div class="icon-box-hmv"><i class="flaticon-achievement"></i></div>
-				<h3>Misión</h3>
-				<div class="tr-pa">M</div>
-				<p style="text-align: justify;">
-					<?= $elementos[4]['valor'] ?>
-				</p>
+			<div class="col-sm col-md-6 col-12" style="display:<?=$elementos[4]['estado'] === "1" ? 'block' : 'none' ?>">
+				<div class="">
+					<div class="icon-box-hmv"><i class="flaticon-achievement"></i></div>
+					<h3>Misión</h3>
+					<div class="tr-pa">M</div>
+					<p style="text-align: justify;">
+						<?= $elementos[4]['valor'] ?>
+					</p>
+				</div>
 			</div>
-		</div>
-		<div class="col-sm col-md-6 col-12">
+		<div class="col-sm col-md-6 col-12" style="display:<?=$elementos[5]['estado'] === "1" ? 'block' : 'none' ?>">
 			<div class="">
 				<div class="icon-box-hmv"><i class="flaticon-eye"></i></div>
 				<h3>Visión</h3>
