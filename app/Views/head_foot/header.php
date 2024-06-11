@@ -53,6 +53,8 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Sentry install -->
+    <script src="https://js.sentry-cdn.com/487ca3af5d21fdb1cdae8c3f549f9757.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="host_version">
@@ -91,4 +93,10 @@
                 $('.navbar-toggler').attr('onclick',"toogleMenu('show')")
             }
         }
+
+        const env = '<?= env("CI_ENVIRONMENT") ?>';
+        Sentry.init({
+            environment: env,
+        });
+
     </script>

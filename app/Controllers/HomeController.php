@@ -84,8 +84,8 @@ class HomeController extends BaseController
             
             $data['producto'] = $DetalleProductoModel->getDataProductSelect($idproducto);
             $data['contactos'] = $ContactoModel->getDataContacto();
-            $data['categorias'] = $CategoriasModel->getDataCategorias();
-            $data['marcas'] = $MarcasModel->getDataMarcas();
+            // $data['categorias'] = $CategoriasModel->getDataCategorias();
+            // $data['marcas'] = $MarcasModel->getDataMarcas();
             
             echo view('head_foot/header',$data);
             echo view('component/productos/Detalleproduct',$data);

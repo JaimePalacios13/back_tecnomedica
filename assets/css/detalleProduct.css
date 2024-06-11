@@ -14,7 +14,7 @@
 .product-card {
   background: white;
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -26,8 +26,8 @@
 }
 
 .cover-image {
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 600px;
   overflow: hidden;
 }
 img:hover {
@@ -45,13 +45,14 @@ img:hover {
 }
 
 .free-shipping {
-  display: inline-block;
+  display: block;
   background: #191847;
   padding: 5px 10px;
   border-radius: 30px;
   font-size: 14px;
   color: white;
   font-weight: 400;
+  text-align: center;
 }
 
 .product-name {
@@ -86,6 +87,8 @@ img:hover {
   text-align: center;
   box-shadow: #e2e9f3 0 5px;
   margin: 20px 0;
+  position: absolute;
+  bottom: 0;
 }
 .add-to-cart ion-icon {
   font-size: 30px;
@@ -143,3 +146,46 @@ img:hover {
 .button:hover ion-icon {
   transform: rotate(360deg);
 }
+
+.product-info-column {
+  background: rgba(40, 40, 100, 0.25);
+  position: relative;
+}
+
+.show-info-contact {
+  display: inline-block;
+  width: 100%;
+  background: #191847;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: #e2e9f3 0 5px;
+  margin: 20px 0;
+}
+.show-info-contact ion-icon {
+  font-size: 30px;
+  margin-bottom: -8px;
+}
+.show-info-contact:hover {
+  background: #e2e9f3;
+  box-shadow: #191847 0 5px;
+  color: #191847;
+}
+.show-info-contact:hover ion-icon {
+  transform: rotate(360deg);
+}
+
+.button-category {
+  display: inline-block;
+  background: #191847;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-size: 14px;
+  color: white;
+  font-weight: 400;
+  text-align: center;
+}
+

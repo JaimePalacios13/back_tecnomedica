@@ -45,7 +45,7 @@
                     </div>
                     </div>
                     <a href="#">
-                    <img src="<?=$product["fotografia"]?>" class="card-img-top" alt="Product">
+                    <img src="<?=base_url(ADMINISTRACION_URL.$product["fotografia"])?>" class="card-img-top" alt="Product">
                     </a>
                     <div class="card-body px-2 pb-2 pt-1">
                     <div class="d-flex justify-content-between">

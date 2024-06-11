@@ -31,7 +31,7 @@
                                                     <td> 
                                                         <a class="btn btn-primary" href="'.$value['url'].'" target=”_blank”>
                                                             <i class="fas fa-folder"></i>
-                                                            View
+                                                            Ver
                                                         </a>
                                                         <button type="button" class="btn btn-info" onClick="pageRedirect('.$value['id_pagina'].')" >
                                                             <i class="fas fa-pencil"></i>
