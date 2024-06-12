@@ -70,7 +70,6 @@ $(document).ready(function() {
                                 allowOutsideClick: false,
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = (baseURL + "pagina/secciones/" + idPagina);
                                 }
                             })
                         } else {
