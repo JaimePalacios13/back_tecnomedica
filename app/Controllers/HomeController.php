@@ -62,7 +62,7 @@ class HomeController extends BaseController
             $MarcasModel = new MarcasModel();
             
             $data['categoriaSelect'] = $CategoriasModel->getDataCategoriaSelect($idcate);
-            $data['productos'] = $VitrinaProductModel->getDataProductos($idcate);
+            $data['productos'] = $VitrinaProductModel->getDataProductosActivos($idcate);
             $data['contactos'] = $ContactoModel->getDataContacto();
             $data['categorias'] = $CategoriasModel->getDataCategorias();
             $data['marcas'] = $MarcasModel->getDataMarcas();

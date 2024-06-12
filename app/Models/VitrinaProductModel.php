@@ -13,10 +13,12 @@ class VitrinaProductModel extends Model{
         $this->where('id_categoria',$idcate);
         return $this->findAll();
     }
-    /* public function getDataProductSelect($idproduct){
+    
+    public function getDataProductosActivos($idcate){
         $this->select('*');
         $this->join('marca','producto.id_marca = marca.idmarca');
-        $this->where('id_producto',$idproduct);
+        $this->where('id_categoria',$idcate);
+        $this->where('producto.estado', 1);
         return $this->findAll();
-    } */
+    }
 }
