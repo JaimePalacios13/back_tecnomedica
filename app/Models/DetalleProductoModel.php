@@ -26,4 +26,13 @@ class DetalleProductoModel extends Model{
         $this->where('destacado',1);
         return $this->findAll();
     }
+
+    public function getDataActiveProductSelect($idproduct){
+        $this->select('producto.*,marca.*, categoria.nombre as nombreCategoria');
+        $this->join('marca','producto.id_marca = marca.idmarca');
+        $this->join('categoria','producto.id_categoria = categoria.id_categoria');
+        $this->where('producto.id_producto',$idproduct);
+        $this->where('producto.estado',1);
+        return $this->findAll();
+    }
 }

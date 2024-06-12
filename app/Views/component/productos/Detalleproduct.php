@@ -13,13 +13,12 @@
       <a href="<?=base_url('categoria/'.$producto[0]["id_categoria"])?>" class="button-category"><?=$producto[0]["nombreCategoria"]?></a>
       <h3 class="product-name"><?=$producto[0]["nombre"]?></h3>
       <p class="offer-info"><?=$producto[0]["descripcion"]?></p>
-      <?php if(isset($producto[0]['catalogo'])){
-        echo '
-        <a class="btn btn-link" href="'.base_url(ADMINISTRACION_URL.$producto[0]['catalogo']).'">
+      <?php if(isset($producto[0]['catalogo'])){ ?>
+        <a class="btn btn-link" href="<?=base_url(ADMINISTRACION_URL.$producto[0]['catalogo'])?>">
           <i class="fas fa-book"></i>
           Descargar Catálogo
-        </a>';
-      } ?>
+        </a>
+      <?php } ?>
       <a href="#" class="show-info-contact" data-toggle="modal" data-target="#viewData">
         <ion-icon name="add-outline"></ion-icon> Mostrar datos de contacto
       </a>

@@ -76,23 +76,24 @@ class HomeController extends BaseController
     }
 
     public function detalleProduct($idproducto){
-        try {
-            $DetalleProductoModel = new DetalleProductoModel();
-            $ContactoModel = new ContactoModel();
-            $CategoriasModel = new CategoriasModel();
-            $MarcasModel = new MarcasModel();
-            
-            $data['producto'] = $DetalleProductoModel->getDataProductSelect($idproducto);
-            $data['contactos'] = $ContactoModel->getDataContacto();
-            // $data['categorias'] = $CategoriasModel->getDataCategorias();
-            // $data['marcas'] = $MarcasModel->getDataMarcas();
-            
-            echo view('head_foot/header',$data);
-            echo view('component/productos/Detalleproduct',$data);
-            echo view('head_foot/footer',$data);
-        } catch (\Throwable $th) {
-            echo $th;
+
+        $DetalleProductoModel = new DetalleProductoModel();
+        $ContactoModel = new ContactoModel();
+        $CategoriasModel = new CategoriasModel();
+        $MarcasModel = new MarcasModel();
+        
+        $data['producto'] = $DetalleProductoModel->getDataActiveProductSelect($idproducto);
+        $data['contactos'] = $ContactoModel->getDataContacto();
+        
+        if(empty($data['producto'])){
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        
+
+        echo view('head_foot/header',$data);
+        echo view('component/productos/Detalleproduct',$data);
+        echo view('head_foot/footer',$data);
+
     }
     public function SendMail(){
         try {
