@@ -1,4 +1,4 @@
-<<link rel="stylesheet" href="<?=base_url()?>/assets/css/404.css">
+<link rel="stylesheet" href="<?=base_url()?>/assets/css/404.css">
 <div id="overviews" class="section wb">
     <div class="container">
         <div class="section-title row text-center">
