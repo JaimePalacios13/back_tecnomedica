@@ -1,5 +1,6 @@
--- Altera la tabla de categorias con la nueva columna de orden
-ALTER TABLE `categoria` ADD `orden` INT NOT NULL ; 
+-- Altera la tabla de categorias 
+ALTER TABLE `categoria` ADD `orden` INT NOT NULL ; -- con una nueva columna de orden
+ALTER TABLE `categoria` ADD `destacado` INT(1) NOT NULL DEFAULT '0' ; -- con una comlumna para destacar
 
 -- Altera la tabla de productos con las nuevas columnas catalogo y estado
 ALTER TABLE `producto` ADD `catalogo` VARCHAR(100) DEFAULT NULL; 

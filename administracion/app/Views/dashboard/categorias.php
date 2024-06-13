@@ -37,7 +37,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $i = 1;
+                                            $i = 1;
                                             foreach ($categorias as $value) {
                                                 $estado = '';
                                                 if ($value['estado'] == 1) {
@@ -45,29 +45,31 @@
                                                 }else {
                                                     $estado = 'INACTIVO';
                                                 }
-                                                echo '
+                                        ?>
                                                 <tr>
-                                                    <td>'.$i.'</td>
-                                                    <td>'.$value['nombre'].'</td>
-                                                    <td>'.$estado.'</td>
-                                                    <td>'.$value['descripcion'].'</td>
+                                                    <td><?=$i?></td>
+                                                    <td><?=$value['nombre']?></td>
+                                                    <td><?=$estado?></td>
+                                                    <td><?=$value['descripcion']?></td>
                                                     <td>
+                                                        <?php if($value["destacado"] == 0):?>
+                                                        <a href="#" class="btn btn-primary btn-xs" onclick="destacar(1,<?= $value['id_categoria'] ?>)"><i class="fas fa-highlighter"></i> Destacar </a>
+                                                        <?php endif?>
+                                                        <?php if($value["destacado"] == 1):?>
+                                                            <a href="#" class="btn btn-secondary btn-xs" onclick="destacar(0,<?= $value['id_categoria'] ?>)"><i class="far fa-highlighter"></i> No Destacar </a>
+                                                        <?php endif?>
                                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit_category"
-                                                            onClick="fillForm(\''.$value['nombre'].'\', 
-                                                                                \''.$value['descripcion'].'\',
-                                                                                '.$value['estado'].',  
-                                                                                '.$value['id_categoria'].'
-                                                            )"
-                                                        >
+                                                            onClick="fillForm('<?=$value['nombre']?>', 
+                                                                                '<?=$value['descripcion']?>',
+                                                                                <?=$value['estado']?>,  
+                                                                                '<?=$value['id_categoria']?>'
+                                                                )">
                                                             <i class="fas fa-pencil"></i>
                                                             Editar
                                                         </button>
                                                     </td>
                                                 </tr>
-                                                ';
-                                                $i++;
-                                            }
-                                        ?>
+                                            <?php  $i++; } ?>
                                     </tbody>
                                 </table>
                             </div>

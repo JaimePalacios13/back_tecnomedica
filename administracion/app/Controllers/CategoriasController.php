@@ -8,6 +8,7 @@ class CategoriasController extends BaseController
 {
     protected $helpers = ['form'];
     private CategoriasModel $categoriasModel;
+    private $maxDestacados = 6;
 
     public function __construct(){
         $this->categoriasModel = new categoriasModel();
@@ -234,5 +235,36 @@ class CategoriasController extends BaseController
 
         echo json_encode("success");
  
+    }
+
+    public function destacar_categoria(){
+
+        $id = $this->request->getPost('idcategoria');
+        $destacado = $this->request->getPost('destacado');
+
+        if($destacado == 0){
+            $data = [
+                'destacado' => 0,
+            ];
+            if ($this->categoriasModel->update($id,$data)) {
+                echo json_encode('success');
+            }else {
+                echo json_encode('error');
+            }
+        } else{
+            $cantDestacados = $this->categoriasModel->countDestacados();
+            $data = [
+                'destacado' => 1,
+            ];
+            if (count($cantDestacados) < $this->maxDestacados) {
+                if ($this->categoriasModel->update($id,$data)) {
+                    echo json_encode('success');
+                }else {
+                    echo json_encode('error');
+                }
+            }else{
+                echo json_encode('mx');
+            }
+        }
     }
 }

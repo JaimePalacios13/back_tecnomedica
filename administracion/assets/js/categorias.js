@@ -209,3 +209,80 @@ function updateOrenCategorias(order){
         }
     });
 }
+
+function destacar(estado, id){
+    let titulo = '';
+    if (estado == 0) {
+        titulo = '¿Está seguro que quieres quitar el destacado a esta categoría?'
+    }else{
+        titulo = '¿Está seguro que quieres destacar esta categoría?'
+    }
+    Swal.fire({
+        title: titulo,
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, realizar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Espere...',
+                html: 'Actualizando categoría...',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: baseURL + "destacar-categoria",
+                data: {
+                    idcategoria: id,
+                    destacado: estado
+                },
+                dataType: "json",
+                success: function(rsp) {
+                    swal.close();
+                    if (rsp == 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Categoría actualizada',
+                            text: 'Categoría actualizado exitosamente',
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            confirmButtonText: 'OK',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'categorias'
+                            }
+                        })
+                    }else if(rsp == 'mx'){
+                        alertError('El máximo de categorías destacadas es de 6')
+                    } else {
+                        alertError('Ocurrio un error al momento de destacar la categoría. Intente de nuevo')
+                    }
+                },
+                error: function(xhr, status, err) {
+                    // Handle errors
+                    swal.close();
+                    console.debug(xhr);
+                    console.debug(status);
+                    console.error(err);
+                    Sentry.captureException(err);
+
+                    new PNotify({
+                        title: 'Acción fallida',
+                        text: 'No se pudo destacar la categoría',
+                        type: 'error',
+                        styling: 'bootstrap3'
+                    });
+                }
+            });
+        }
+    })
+}

@@ -11,7 +11,8 @@ class CategoriasModel extends Model{
         'descripcion', 
         'fotografia',
         'estado',
-        'orden'
+        'orden',
+        'destacado'
     ];
 
     public function getDataCategorias(){
@@ -31,5 +32,12 @@ class CategoriasModel extends Model{
                 ->where('estado', 1)
                 ->findAll();
     }
+
+    public function countDestacados(){
+        $this->select('*');
+        $this->where('destacado',1);
+        return $this->findAll();
+    }
+
 
 }
