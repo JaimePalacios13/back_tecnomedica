@@ -8,10 +8,14 @@ use App\Models\CategoriasModel;
 use App\Models\MarcasModel;
 use App\Models\DetalleProductoModel;
 use App\Models\VitrinaProductModel;
+use App\Models\PaginaSeccionesModel;
+use App\Models\SeccionDetalleModel;
 use \Config\Services;
 
 class HomeController extends BaseController
 {
+    private int $idPagina = 2;
+
     public function index()
     {
         try {
@@ -21,12 +25,25 @@ class HomeController extends BaseController
             $CarouselModel = new CarouselModel();
             $CategoriasModel = new CategoriasModel();
             $MarcasModel = new MarcasModel();
+            $paginaSeccionesModel = new PaginaSeccionesModel();
+            $seccionDetalleModel = new SeccionDetalleModel();
+
             $data['datos'] = $HomeModel->getDataHome();
             $data['contactos'] = $ContactoModel->getDataContacto();
-            $data['carousel'] = $CarouselModel->getDataCarousel();
+            //$data['carousel'] = $CarouselModel->getDataCarousel();
             $data['categorias'] = $CategoriasModel->getDataCategorias();
             $data['marcas'] = $MarcasModel->getDataMarcas();
             $data['destacados'] = $DetalleProductoModel->getDestacados();
+            $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
+
+            $elementos = array();
+            foreach($data['secciones'] as $seccion){
+                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+                foreach($seccionDetalle as $detalle){
+                    $elementos[] = $detalle;
+                }
+            }
+            $data['elementos'] = $elementos;
             
             echo view('head_foot/header',$data);
             echo view('component/home',$data);
