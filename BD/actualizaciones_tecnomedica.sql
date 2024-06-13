@@ -20,3 +20,14 @@ VALUES (NULL, '6', 'Imagen 1', NULL, '1', 'file', '{\r\n   \"indicaciones\":{\r\
     (NULL, '6', 'Imagen 3', NULL, '1', 'file', '{\r\n   \"indicaciones\":{\r\n      \"1\":\"Se permite la subida de imágenes\",\r\n      \"2\":\"Extensiones permitidas: jpg,jpeg,gif y png\",\r\n      \"3\":\"Peso máximo: 3 MB\",\r\n      \"4\":\"Dimensiones máximas: 1780x440\"\r\n   },\r\n   \"config\" : {\r\n      \"max_dims\" : \"1780, 440\"\r\n   }\r\n}'), 
     (NULL, '6', 'Imagen 4', NULL, '1', 'file', '{\r\n   \"indicaciones\":{\r\n      \"1\":\"Se permite la subida de imágenes\",\r\n      \"2\":\"Extensiones permitidas: jpg,jpeg,gif y png\",\r\n      \"3\":\"Peso máximo: 3 MB\",\r\n      \"4\":\"Dimensiones máximas: 1780x440\"\r\n   },\r\n   \"config\" : {\r\n      \"max_dims\" : \"1780, 440\"\r\n   }\r\n}'), 
     (NULL, '6', 'Imagen 5', NULL, '1', 'file', '{\r\n   \"indicaciones\":{\r\n      \"1\":\"Se permite la subida de imágenes\",\r\n      \"2\":\"Extensiones permitidas: jpg,jpeg,gif y png\",\r\n      \"3\":\"Peso máximo: 3 MB\",\r\n      \"4\":\"Dimensiones máximas: 1780x440\"\r\n   },\r\n   \"config\" : {\r\n      \"max_dims\" : \"1780, 440\"\r\n   }\r\n}');
+
+-- Inserta la página de footer con la sección de siguenos
+INSERT INTO `pagina` (`id_pagina`, `nombre`, `url`) VALUES (NULL, 'Footer', '../'); 
+INSERT INTO `pagina_seccion` (`id_seccion`, `id_pagina`, `nombre`) VALUES (NULL, '3', 'Síguenos'); 
+
+-- Inserta los registros de la sección de siguenos
+INSERT INTO `seccion_detalle` (`id_detalle`, `id_seccion`, `nombre`, `valor`, `estado`, `tipo`, `extras`) 
+VALUES (NULL, '7', 'Facebook', 'www.facebook.com', '1', 'text', NULL), 
+(NULL, '7', 'Instagram', 'www.instagram.com', '1', 'text', NULL), 
+(NULL, '7', 'LinkedIn', 'www.linkedin.com', '1', 'text', NULL), 
+(NULL, '7', 'WhatsApp', 'www.whatsapp.com', '1', 'text', NULL); 

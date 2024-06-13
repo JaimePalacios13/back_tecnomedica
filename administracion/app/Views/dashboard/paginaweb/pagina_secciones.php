@@ -68,7 +68,16 @@
                                                                         echo form_label($elemento['nombre'],'',$attributes);
                                                                         echo '<input type="file" name="images['.$elemento['id_detalle'].']">';
                                                                         break;
-                                                                    // You can have any number of case statements
+                                                                    case "text":
+                                                                        echo form_label($elemento['nombre']);
+                                                                        $data = [
+                                                                            'name'          => 'elemento['.$contadorElementos.'][valor_elemento]',
+                                                                            'value'         => $elemento['valor'],
+                                                                            'class'         => 'form-control',
+                                                                            'placeholder'   =>$elemento['nombre'].'...',
+                                                                        ];
+                                                                        echo form_input($data);
+                                                                        break;
                                                                     default:
                                                                         echo form_label($elemento['nombre'].' (350 chars max)');
 
