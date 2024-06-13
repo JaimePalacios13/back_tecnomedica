@@ -1,6 +1,6 @@
 <div class="container my-5">
     <div class="section-title text-center">
-        <h3>Categorías</h3>
+        <h3><?=$tituloSeccionCategorias?></h3>
     </div>
     <div class="row row-cols-1 row-cols-md-3">
         <?php foreach ($categorias as $categoria) {?>

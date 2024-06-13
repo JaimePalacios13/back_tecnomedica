@@ -30,11 +30,11 @@ class HomeController extends BaseController
 
             $data['datos'] = $HomeModel->getDataHome();
             $data['contactos'] = $ContactoModel->getDataContacto();
-            //$data['carousel'] = $CarouselModel->getDataCarousel();
-            $data['categorias'] = $CategoriasModel->getDataCategorias();
+            $data['categorias'] = $CategoriasModel->getCategoriasActivasOrdenadas();
             $data['marcas'] = $MarcasModel->getDataMarcas();
             $data['destacados'] = $DetalleProductoModel->getDestacados();
             $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
+            $data['tituloSeccionCategorias'] = 'Categorías Destacadas';
 
             $elementos = array();
             foreach($data['secciones'] as $seccion){
@@ -47,6 +47,7 @@ class HomeController extends BaseController
             
             echo view('head_foot/header',$data);
             echo view('component/home',$data);
+            echo view('component/productos',$data);
             echo view('head_foot/footer',$data);
         } catch (\Throwable $th) {
             echo $th;
@@ -114,11 +115,6 @@ class HomeController extends BaseController
     }
     public function SendMail(){
         try {
-            /* $data = [
-                'url_image' => base_url().'/assets/images/logo.png',
-                'nombre'    => $datos['nombre'],
-                'pwd'       => $datos['password']
-            ]; */
             $message = view('correos/contactenos');
             $email = Services::email();
             $email->setFrom('contactenosnoreply@tecnomedica-sv.com', 'contactenosnoreply@tecnomedica-sv.com');
@@ -140,7 +136,7 @@ class HomeController extends BaseController
             exit();
 
         } catch (\Throwable $th) {
-            //throw $th;
+            
         }
     }
 }
