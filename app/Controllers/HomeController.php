@@ -30,7 +30,7 @@ class HomeController extends BaseController
 
             $data['datos'] = $HomeModel->getDataHome();
             $data['contactos'] = $ContactoModel->getDataContacto();
-            $data['categorias'] = $CategoriasModel->getCategoriasActivasOrdenadas();
+            $data['categorias'] = $CategoriasModel->getCategoriasDestacadas();
             $data['marcas'] = $MarcasModel->getDataMarcas();
             $data['destacados'] = $DetalleProductoModel->getDestacados();
             $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);

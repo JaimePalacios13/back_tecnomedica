@@ -27,4 +27,11 @@ class CategoriasModel extends Model{
                 ->orderBy('orden', 'asc')
                 ->findAll();
     }
+
+    public function getCategoriasDestacadas(){
+        return  $this->where('estado', 1)
+                ->where('destacado', 1)
+                ->orderBy('orden', 'asc')
+                ->findAll();
+    }
 }
