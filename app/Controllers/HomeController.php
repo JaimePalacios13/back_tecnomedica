@@ -32,7 +32,7 @@ class HomeController extends BaseController
             $data['contactos'] = $ContactoModel->getDataContacto();
             $data['categorias'] = $CategoriasModel->getCategoriasDestacadas();
             $data['marcas'] = $MarcasModel->getDataMarcas();
-            $data['destacados'] = $DetalleProductoModel->getDestacados();
+            $data['destacados'] = $DetalleProductoModel->getDestacadosActivos();
             $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
             $data['tituloSeccionCategorias'] = 'Categorías Destacadas';
 
@@ -48,6 +48,7 @@ class HomeController extends BaseController
             echo view('head_foot/header',$data);
             echo view('component/home',$data);
             echo view('component/productos',$data);
+            echo view('component/home/productos_destacados',$data);
             echo view('head_foot/footer',$data);
         } catch (\Throwable $th) {
             echo $th;

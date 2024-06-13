@@ -35,4 +35,11 @@ class DetalleProductoModel extends Model{
         $this->where('producto.estado',1);
         return $this->findAll();
     }
+
+    public function getDestacadosActivos(){
+        $this->select('*');
+        $this->where('destacado',1);
+        $this->where('estado',1);
+        return $this->findAll();
+    }
 }
