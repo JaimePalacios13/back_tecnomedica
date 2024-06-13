@@ -41,9 +41,12 @@ $routes->get('home', 'HomeController::index');
 $routes->get('usuarios', 'UsuariosController::index');
 $routes->post('delete_user', 'UsuariosController::deleteUser');
 $routes->post('new_user', 'UsuariosController::nuevo_usuario');
+// Paginas
 $routes->get('paginas', 'Paginaweb\PaginasController::index');
+// PaginasSecciones
 $routes->get('pagina/secciones/(:any)', 'Paginaweb\PaginaSeccionesController::index/$1');
 $routes->post('pagina/secciones/update', 'Paginaweb\PaginaSeccionesController::update');
+$routes->post('pagina/secciones/update_v2', 'Paginaweb\PaginaSeccionesController::update_v2');
 
 
 /* CATEGORIAS */

@@ -38,7 +38,7 @@ $(document).ready(function() {
                 });
 
                 $.ajax({
-                    url: baseURL + "pagina/secciones/update",
+                    url: baseURL + "pagina/secciones/update_v2",
                     type: "POST",
                     data: formData,
                     // dataType: "json",
@@ -77,9 +77,20 @@ $(document).ready(function() {
                             console.debug(rsp);
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function(xhr, status, err) {
                         // Handle errors
-                        console.error('AJAX Error: ' + status + ': ' + error);
+                        swal.close();
+                        console.debug("xhr", xhr);
+                        console.debug("status", status);
+                        console.error(err);
+                        Sentry.captureException(err);
+
+                        new PNotify({
+                            title: 'Acción fallida',
+                            text: 'No se puduieron actualizar las secciones',
+                            type: 'error',
+                            styling: 'bootstrap3'
+                        });
                     }
                 });
             }

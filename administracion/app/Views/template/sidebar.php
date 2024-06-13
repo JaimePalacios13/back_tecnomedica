@@ -32,7 +32,7 @@
                                 <li><a href="<?= base_url() ?>/productos"><i class="fas fa-tags"></i> Productos </a>
                                 <li><a href="<?= base_url() ?>/contactos"><i class="fas fa-address-card"></i> Detalle Contacto </a>
                                 <li><a href="<?= base_url() ?>/paginas"><i class="fas fa-clone"></i> Páginas </a>
-                                <li><a><i class="fas fa-gear"></i> Configuración <span class="fas fa-chevron-down"></span></a>
+                                <li style="display: none"><a><i class="fas fa-gear"></i> Configuración <span class="fas fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="<?= base_url() ?>/historia">Historia / frase</a></li>
                                         <li><a href="<?= base_url() ?>/carousel">Carousel</a></li>

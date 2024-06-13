@@ -12,7 +12,7 @@ use App\Exceptions\CustomExceptionHandler;
 class PaginaSeccionesController extends BaseController
 {
     private SeccionDetalleModel $seccionDetalleModel;
-    protected $helpers = ['form'];
+    protected $helpers = ['form', 'files'];
     private $errorNingunArchivo = 4;   // Ningún archivo fue subido
 
     public function __construct(){
@@ -26,6 +26,7 @@ class PaginaSeccionesController extends BaseController
             $paginasModel = new PaginasModel();
             $data['pagina'] = $paginasModel->getPage($idPagina);
             $data['loadPaginaSeccionesJS'] = true;
+            session()->set('paginaNombre', $data['pagina']['nombre']);
 
             $paginaSeccionesModel = new PaginaSeccionesModel();
             $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($idPagina);
@@ -146,5 +147,77 @@ class PaginaSeccionesController extends BaseController
             echo json_encode('Se presentó un error a la hora de subir la imagen. Revisar los logs para mayor detalle');
             CustomExceptionHandler::handleExceptionNoView($e);
         } 
+    }
+
+    public function update_v2()
+    { 
+        $paginaNombre = session()->get('paginaNombre');
+
+        // Get the files
+        $files = $this->request->getFiles();
+
+        // Check if images are uploaded
+        if ($files) {
+            foreach ($files['images'] as $key => $image){
+                $validationRule = [
+                    'images.'.$key => [
+                        'rules' => [
+                            'uploaded[images.'.$key.']',
+                            'is_image[images.'.$key.']',
+                            'mime_in[images.'.$key.',image/jpg,image/jpeg,image/gif,image/png]',
+                            'max_size[images.'.$key.',3000]',
+                            'max_dims[images.'.$key.','.$this->getmaxDims($key).']',
+                            ],
+                        ],
+                ];
+
+                if (!$this->validate($validationRule)) {
+                    $data = ['errors' => $this->validator->getErrors()];
+                    echo json_encode(var_dump($data));
+                    return;
+                }
+            }
+        } 
+
+        // Ingresa los datos del formulario
+        $data = array();
+
+        // Actualiza los elementos
+        foreach ($this->request->getPost('elemento') as $key => $element){
+
+            if ( $element['tipo_elemento'] == "file" ){
+                $data[] = array(
+                    'id_detalle' => $element['id_elemento'],
+                    'estado' => array_key_exists('estado_elemento', $element) ? 1 : 0
+                );
+            } else{
+                $data[] = array(
+                    'id_detalle' => $element['id_elemento'],
+                    'valor' => $element['valor_elemento'],
+                    'estado' => array_key_exists('estado_elemento', $element) ? 1 : 0
+                );
+            }
+        }
+        $this->seccionDetalleModel->updateBatch($data, 'id_detalle');
+
+        // Actualiza los documentos
+        if($files)
+        {
+            foreach ($files['images'] as $key => $image){
+                $urlImage = upload_file($image, 'assets/upload/paginaweb/'.$paginaNombre.'/');
+                $data = [
+                    'valor' => $urlImage
+                ];
+                $this->seccionDetalleModel->update($key,$data);
+            }
+        }
+        echo json_encode("success");
+    }
+
+    function getmaxDims($idElemento){
+        $extrasArray = $this->seccionDetalleModel->geExtras($idElemento);
+        $extras = json_decode($extrasArray['extras'], true);
+        $maxDims = !empty($extras['config']['max_dims']) ? $extras['config']['max_dims'] : '455,243';
+        return $maxDims;
     }
 }
