@@ -84,3 +84,4 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
  | --------------------------------------------------------------------------
  */
 defined('ADMINISTRACION_URL')  || define('ADMINISTRACION_URL','administracion/'); // Define la ruta del proyecto de administracion
+defined('COMPANY_NAME')  || define('COMPANY_NAME','Tecnomedica S.A de C.V'); // Nombre de la compañía
