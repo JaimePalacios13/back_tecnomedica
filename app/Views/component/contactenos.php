@@ -24,7 +24,7 @@
 	            </p>
 	        </div><!-- end title -->
 	        <div class="row">
-	            <div class="col-xl-6 col-md-12 col-sm-12">
+	            <div class="col-xl-12 col-md-12 col-sm-12">
 	                <div class="contact_form">
 	                    <!-- <div id="message"></div> -->
 	                    <form action="<?=base_url()?>Contactenos/contactenos" name="contactform" method="POST">
@@ -61,6 +61,35 @@
 	                    </form>
 	                </div>
 	            </div><!-- end col -->
+			</div><!-- end row -->
+			<div class="row">
+			<div class="col-sm col-md col-xs-12 bg-light text-center">
+                <div class="widget clearfix">
+                    <div class="widget-title">
+						<div class="row mt-4">
+							<div class="col-sm">
+								<h1 class="font-weight-bolder"><?=$seccionesFooter[0]['nombre']?></h1>
+							</div>
+	                	</div>
+                    </div>
+                    <div class="footer-icons">
+                        <ul>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
+                            <?php } ?>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                            <?php } ?>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
+                            <?php } ?>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div><!-- end clearfix -->
+            </div><!-- end col -->
 	            <div class="col-xl-6 col-md-12 col-sm-12 bg-light text-center">
 	                <div class="row mt-4">
 	                    <div class="col-sm">
@@ -94,6 +123,6 @@
 	                </div>
 	                <?php } ?>
 	            </div>
-	        </div><!-- end row -->
+			</div><!-- end row -->
 	    </div><!-- end container -->
 	</div><!-- end section -->
