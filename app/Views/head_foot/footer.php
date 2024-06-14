@@ -1,20 +1,5 @@
-<?php if(isset($marcas)){ ?>
-    <div class="parallax section dbcolor">
-        <div class="container">
-                <div class="row logos">
-                    <div class="owl-carousel owl-theme">
-                        <?php foreach($marcas as $marca){?>    
-                        <div class="item">
-                            <a href="#">
-                                <img src="<?=$marca['fotomarca']?>" alt="" class="img-repsonsive">
-                            </a>
-                        </div>
-                        <?php }?>
-                    </div>
-                </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
-<?php } ?>
+<div class="parallax section dbcolor">
+</div><!-- end section -->
 
 <footer class="footer">
     <div class="container">
@@ -22,24 +7,19 @@
             <div class="col-sm col-md col-xs-12">
                 <div class="widget clearfix">
                     <div class="widget-title">
-                        <h3>Sobre nosotros</h3>
+                        <h3><?=$seccionesFooter[0]['nombre']?></h3>
                     </div>
-                    <?php foreach ($contactos as $contacto) {?>
-                    <p>
-                        <?=$contacto['about_us']?>
-                    </p>
-                    <div class="footer-right">
-                        <ul class="footer-links-soi">
-                            <!-- <li><a target="_blank" href="<?=$contacto['web']?>"><i class="fa fa-facebook"></i></a></li> -->
-                            <!-- <li><a href="#"><i class="fa fa-github"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-pinterest"></i></a></li> -->
-                        </ul><!-- end links -->
+                    <div class="footer-icons">
+                        <ul>
+                            <li><a href="<?=$elementosFooter[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
+                            <li><a href="<?=$elementosFooter[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                            <li><a href="<?=$elementosFooter[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
+                            <li><a href="<?=$elementosFooter[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+                        </ul>
                     </div>
                 </div><!-- end clearfix -->
             </div><!-- end col -->
-
+            
             <div class="col-sm col-md col-xs-12 ml-3">
                 <div class="widget clearfix">
                     <div class="widget-title">
@@ -47,11 +27,11 @@
                     </div>
 
                     <ul class="footer-links">
-
-                        <li><i class="fas fa-envelope fa-2x"></i> <a href="mailto:#"><?=$contacto['correo']?></a></li>
-                        <li style="display:<?=$contacto['web']== ''?'none': 'block'?>"><i class="fab fa-facebook-square fa-2x"></i> <a href="#"><?=$contacto['web']?></a></li>
-                        <li><i class="fas fa-route fa-2x"></i> <?=$contacto['direccion']?></li>
-                        <li><i class="fas fa-phone-square-alt fa-2x"></i> <?=$contacto['telefono']?> & (+503)<?=$contacto['celular']?></li>
+                        <?php foreach ($contactos as $contacto) {?>
+                            <li><i class="fas fa-envelope fa-2x"></i> <a href="mailto:#"><?=$contacto['correo']?></a></li>
+                            <li style="display:<?=$contacto['web']== ''?'none': 'block'?>"><i class="fab fa-facebook-square fa-2x"></i> <a href="#"><?=$contacto['web']?></a></li>
+                            <li><i class="fas fa-route fa-2x"></i> <?=$contacto['direccion']?></li>
+                            <li><i class="fas fa-phone-square-alt fa-2x"></i> <?=$contacto['telefono']?> & (+503)<?=$contacto['celular']?></li>
                         <?php } ?>
                     </ul><!-- end links -->
                 </div><!-- end clearfix -->
@@ -96,23 +76,40 @@ timeline(document.querySelectorAll('.timeline'), {
     console.log(cantidad);
 
     $(".owl-carousel").owlCarousel({
-    loop: cantidad >= 5 ? true : false,
-    margin:20,
-    nav: false,
-    autoplay: cantidad >= 5 ? true : false,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
+        loop: cantidad >= 5 ? true : false,
+        margin:20,
+        nav: false,
+        autoplay: cantidad >= 5 ? true : false,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:5
+            }
         }
-    }
-})
+    });
 </script>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+
+    <style>
+        .footer-icons {
+        justify-content: space-between;
+        padding: 16px 64px 0px 0px}
+
+        .footer-icons ul {
+        list-style-type: none;}
+
+        .footer-icons li {
+            display: inline-block;
+            padding: 0px 10px 0px 10px
+        }
+
+    </style>
 </body>
 
 </html>

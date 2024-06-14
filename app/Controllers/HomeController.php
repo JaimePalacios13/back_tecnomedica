@@ -15,6 +15,7 @@ use \Config\Services;
 class HomeController extends BaseController
 {
     private int $idPagina = 2;
+    private int $idPaginaFooter = 3;
 
     public function index()
     {
@@ -34,6 +35,7 @@ class HomeController extends BaseController
             $data['marcas'] = $MarcasModel->getDataMarcas();
             $data['destacados'] = $DetalleProductoModel->getDestacadosActivos();
             $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
+            $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
             $data['tituloSeccionCategorias'] = 'Categorías Destacadas';
 
             $elementos = array();
@@ -44,6 +46,15 @@ class HomeController extends BaseController
                 }
             }
             $data['elementos'] = $elementos;
+
+            $elementos = array();
+            foreach($data['seccionesFooter'] as $seccion){
+                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+                foreach($seccionDetalle as $detalle){
+                    $elementos[] = $detalle;
+                }
+            }
+            $data['elementosFooter'] = $elementos;
             
             echo view('head_foot/header',$data);
             echo view('component/home',$data);
