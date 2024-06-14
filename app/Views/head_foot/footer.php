@@ -11,10 +11,18 @@
                     </div>
                     <div class="footer-icons">
                         <ul>
-                            <li><a href="<?=$elementosFooter[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
-                            <li><a href="<?=$elementosFooter[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
-                            <li><a href="<?=$elementosFooter[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
-                            <li><a href="<?=$elementosFooter[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
+                            <?php } ?>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                            <?php } ?>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
+                            <?php } ?>
+                            <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                <li><a href="<?=$elementosFooter[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div><!-- end clearfix -->

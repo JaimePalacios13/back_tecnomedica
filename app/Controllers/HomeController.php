@@ -47,6 +47,7 @@ class HomeController extends BaseController
             }
             $data['elementos'] = $elementos;
 
+            // Obtiene la seccion de siguenos (RRSS)
             $elementos = array();
             foreach($data['seccionesFooter'] as $seccion){
                 $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
@@ -71,10 +72,23 @@ class HomeController extends BaseController
             $ContactoModel = new ContactoModel();
             $CategoriasModel = new CategoriasModel();
             $MarcasModel = new MarcasModel();
+            $paginaSeccionesModel = new PaginaSeccionesModel();
+            $seccionDetalleModel = new SeccionDetalleModel();
             
             $data['contactos'] = $ContactoModel->getDataContacto();
             $data['categorias'] = $CategoriasModel->getDataCategorias();
             $data['marcas'] = $MarcasModel->getDataMarcas();
+            $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+
+            // Obtiene la seccion de siguenos (RRSS)
+            $elementos = array();
+            foreach($data['seccionesFooter'] as $seccion){
+                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+                foreach($seccionDetalle as $detalle){
+                    $elementos[] = $detalle;
+                }
+            }
+            $data['elementosFooter'] = $elementos;
             
             echo view('head_foot/header',$data);
             echo view('component/contactenos',$data);
@@ -90,12 +104,25 @@ class HomeController extends BaseController
             $ContactoModel = new ContactoModel();
             $CategoriasModel = new CategoriasModel();
             $MarcasModel = new MarcasModel();
+            $paginaSeccionesModel = new PaginaSeccionesModel();
+            $seccionDetalleModel = new SeccionDetalleModel();
             
             $data['categoriaSelect'] = $CategoriasModel->getDataCategoriaSelect($idcate);
             $data['productos'] = $VitrinaProductModel->getDataProductosActivos($idcate);
             $data['contactos'] = $ContactoModel->getDataContacto();
             $data['categorias'] = $CategoriasModel->getDataCategorias();
             $data['marcas'] = $MarcasModel->getDataMarcas();
+            $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+
+            // Obtiene la seccion de siguenos (RRSS)
+            $elementos = array();
+            foreach($data['seccionesFooter'] as $seccion){
+                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+                foreach($seccionDetalle as $detalle){
+                    $elementos[] = $detalle;
+                }
+            }
+            $data['elementosFooter'] = $elementos;
             
             echo view('head_foot/header',$data);
             echo view('component/productos/vitrinaProducto',$data);
@@ -111,14 +138,26 @@ class HomeController extends BaseController
         $ContactoModel = new ContactoModel();
         $CategoriasModel = new CategoriasModel();
         $MarcasModel = new MarcasModel();
+        $paginaSeccionesModel = new PaginaSeccionesModel();
+        $seccionDetalleModel = new SeccionDetalleModel();
         
         $data['producto'] = $DetalleProductoModel->getDataActiveProductSelect($idproducto);
         $data['contactos'] = $ContactoModel->getDataContacto();
+        $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
         
         if(empty($data['producto'])){
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         
+        // Obtiene la seccion de siguenos (RRSS)
+        $elementos = array();
+        foreach($data['seccionesFooter'] as $seccion){
+            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+            foreach($seccionDetalle as $detalle){
+                $elementos[] = $detalle;
+            }
+        }
+        $data['elementosFooter'] = $elementos;
 
         echo view('head_foot/header',$data);
         echo view('component/productos/Detalleproduct',$data);
