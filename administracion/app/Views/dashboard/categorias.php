@@ -135,9 +135,7 @@
                                                 <div class="row">
                                                     <div class="col">
 
-                                                        <p>Modica el orden en el que aparecen las categorías en la página web
-                                                            (página productos)
-                                                        </p>
+                                                        <p>Arrastra para modicar el orden en el que aparecen las categorías en la página web</p>
 
                                                         <!-- Simple List -->
                                                         <ul id="simpleList" class="list-group">

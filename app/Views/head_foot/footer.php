@@ -6,25 +6,30 @@
         <div class="row">
             <div class="col-sm col-md col-xs-12">
                 <div class="widget clearfix">
-                    <div class="widget-title">
-                        <h3><?=$seccionesFooter[0]['nombre']?></h3>
-                    </div>
-                    <div class="footer-icons">
-                        <ul>
-                            <?php if($elementosFooter[0]['estado']==="1") { ?>
-                                <li><a href="<?=$elementosFooter[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
-                            <?php } ?>
-                            <?php if($elementosFooter[0]['estado']==="1") { ?>
-                                <li><a href="<?=$elementosFooter[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
-                            <?php } ?>
-                            <?php if($elementosFooter[0]['estado']==="1") { ?>
-                                <li><a href="<?=$elementosFooter[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
-                            <?php } ?>
-                            <?php if($elementosFooter[0]['estado']==="1") { ?>
-                                <li><a href="<?=$elementosFooter[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
-                            <?php } ?>
-                        </ul>
-                    </div>
+                    <?php if(($elementosFooter[0]['estado']==="1") || $elementosFooter[1]['estado']==="1" ||
+                        ($elementosFooter[2]['estado']==="1") || ($elementosFooter[3]['estado']==="1") ) 
+                        {
+                    ?>
+                        <div class="widget-title">
+                            <h3><?=$seccionesFooter[0]['nombre']?></h3>
+                        </div>
+                        <div class="footer-icons">
+                            <ul>
+                                <?php if($elementosFooter[0]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosFooter[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
+                                <?php } ?>
+                                <?php if($elementosFooter[1]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosFooter[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                                <?php } ?>
+                                <?php if($elementosFooter[2]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosFooter[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
+                                <?php } ?>
+                                <?php if($elementosFooter[3]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosFooter[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    <?php } ?>
                 </div><!-- end clearfix -->
             </div><!-- end col -->
             

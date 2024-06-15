@@ -14,7 +14,7 @@
       <h3 class="product-name"><?=$producto[0]["nombre"]?></h3>
       <p class="offer-info"><?=$producto[0]["descripcion"]?></p>
       <?php if(isset($producto[0]['catalogo'])){ ?>
-        <a class="btn btn-link" href="<?=base_url(ADMINISTRACION_URL.$producto[0]['catalogo'])?>">
+        <a class="btn btn-link" href="<?=base_url(ADMINISTRACION_URL.$producto[0]['catalogo'])?>" download>
           <i class="fas fa-book"></i>
           Descargar Catálogo
         </a>

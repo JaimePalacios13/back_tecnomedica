@@ -76,7 +76,7 @@
                         <li class="nav-item"><a class="nav-link" href="<?=base_url()?>">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/conozcanos">Conózcanos</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/productos"">Productos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/contactenos">Contactenos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/contactenos">Contáctenos</a></li>
                     </ul>
                 </div>
             </div>
