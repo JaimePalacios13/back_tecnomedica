@@ -92,7 +92,7 @@ class ProductosController extends BaseController
                             'is_image[fotografia]',
                             'mime_in[fotografia,image/jpg,image/jpeg,image/gif,image/png]',
                             'max_size[fotografia,5000]',
-                            'max_dims[fotografia,5000,5000]',
+                            'max_dims[fotografia,600,600]',
                             ],
                         ],
                 ];
@@ -238,7 +238,7 @@ class ProductosController extends BaseController
                             'is_image[fotografia]',
                             'mime_in[fotografia,image/jpg,image/jpeg,image/gif,image/png]',
                                 'max_size[fotografia,5000]',
-                                'max_dims[fotografia,5000,5000]',
+                                'max_dims[fotografia,600,600]',
                             ],
                         ],
                 ];
