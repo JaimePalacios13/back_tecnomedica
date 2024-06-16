@@ -228,7 +228,7 @@
                                     <li>Se permite la subida de imágenes</li>
                                     <li>Extensiones permitidas: jpg,jpeg,gif y png</li>
                                     <li>Peso máximo: 5 MB</li>
-                                    <li>Dimensiones máximas: 5000x5000</li>
+                                    <li>Dimensiones máximas: 600x600</li>
                                 </ul>
                             </div>
                             <div class="form-group">
