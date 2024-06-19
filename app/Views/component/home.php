@@ -1,17 +1,17 @@
 <!-- END LOADER -->
 
 <style>
-	@media only screen and (min-width : 601px) {
-		<?php foreach ($elementos as $elemento) : ?>
-			<?php if($elemento["estado"]==="1") { ?>
-				.banner-<?=$elemento["id_detalle"]?>-img{
-					background-image:url(<?=base_url(ADMINISTRACION_URL.$elemento["valor"])?>);
-					background-repeat: no-repeat;
-					background-size: 100% 100% !important;
-				}
-			<?php } ?>
-		<?php endforeach; ?>
-	}
+
+	<?php foreach ($elementos as $elemento) : ?>
+		<?php if($elemento["estado"]==="1") { ?>
+			.banner-<?=$elemento["id_detalle"]?>-img{
+				background-image:url(<?=base_url(ADMINISTRACION_URL.$elemento["valor"])?>);
+				background-repeat: no-repeat;
+				background-size: 100% 100% !important;
+			}
+		<?php } ?>
+	<?php endforeach; ?>
+	
 </style>
 	
 <div id="carouselExampleControls" class="carousel slide bs-slider box-slider" data-ride="carousel" data-pause="hover"

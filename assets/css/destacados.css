@@ -1,3 +1,18 @@
+@media only screen and (min-width : 601px) {
+    .slider input {
+        display: none;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .slider input[type="radio"] {
+        -ms-transform: scale(1.5); /* IE 9 */
+        -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+        transform: scale(1.5);
+        margin: 10px;
+        margin-top: 20px;
+      }
+}
+
 .mycard {
     height: 100%;
     width: 100%;
@@ -24,13 +39,11 @@
     }
 
     .slider {
-    width: 100%;
-
-    min-height: 385px;
+        width: 100%;
+        min-height: 385px;
+        text-align: center;
     }
-    .slider input {
-    display: none;
-    }
+    
     .testimonials {
     display: flex;
     align-items: center;

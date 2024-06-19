@@ -1,6 +1,6 @@
 <?php foreach($datos as $mostrarBody):?>
 	<div id="plan" class="section lb">
-	    <div class="container contenedorDest">
+	    <div class="container">
 	        <div class="section-title text-center">
 	            <h3>Productos Destacados</h3>
 	        </div>
@@ -8,9 +8,11 @@
 				<div class="col">
 					<div class="container custom-card-container">
 					<div class="slider">
+
 						<?php $i= 1; foreach($destacados as $viewDesct):?>
 							<input type="radio" name="testimonial" id="t-<?=$i?>" <?=$i==ceil(count($destacados)/2)?'checked':''?>/>
 						<?php $i++; endforeach?>
+
 						<div class="testimonials mb-8">
 						<?php $i= 1; foreach($destacados as $viewDesct):?>
 						<label class="item" for="t-<?=$i?>">

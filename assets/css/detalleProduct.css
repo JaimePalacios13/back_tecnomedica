@@ -1,16 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
+@media only screen and (min-width : 601px) {
+  /* destok */
+  .product-card{
+    display: flex;
+  }
+
+  .cover-image {
+    width: 600px;
+    height: 600px;
+    overflow: hidden;
+  }
+}
+
 @media only screen and (max-width : 600px) {
   /* mobil */
   .product-card{
     display: block;
   }
 }
-@media only screen and (min-width : 601px) {
-  /* destok */
-  .product-card{
-    display: flex;
-  }
-}
+
 .product-card {
   background: white;
   width: 100%;
@@ -25,11 +34,6 @@
   color: #191847;
 }
 
-.cover-image {
-  width: 600px;
-  height: 600px;
-  overflow: hidden;
-}
 img:hover {
   transform: scale(1.05);
 }
