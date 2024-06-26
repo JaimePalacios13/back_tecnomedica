@@ -106,7 +106,7 @@
                                                                 <li>Se permite la subida de imágenes</li>
                                                                 <li>Extensiones permitidas: jpg,jpeg,gif y png</li>
                                                                 <li>Peso máximo: 150 KB</li>
-                                                                <li>Dimensiones máximas: 386x180</li>
+                                                                <li>Dimensiones máximas: 316x147</li>
                                                             </ul>
                                                         </div>
                                                         <div class="form-group">
@@ -196,7 +196,7 @@
                                     <li>Se permite la subida de imágenes</li>
                                     <li>Extensiones permitidas: jpg,jpeg,gif y png</li>
                                     <li>Peso máximo: 150 KB</li>
-                                    <li>Dimensiones máximas: 386x180</li>
+                                    <li>Dimensiones máximas: 316x147</li>
                                 </ul>
                             </div>
                         </div>
