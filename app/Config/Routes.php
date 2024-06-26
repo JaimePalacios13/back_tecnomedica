@@ -32,12 +32,14 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'HomeController::index');
-$routes->get('contactenos', 'HomeController::contactenenos');
+$routes->get('contactenos', 'HomeController::contactenenos/false');
+$routes->get('contactenos/enviado', 'HomeController::contactenenos/true');
 $routes->get('categoria/(:any)', 'HomeController::categoriaShow/$1');
 $routes->get('Productos/detalle-producto/(:any)', 'HomeController::detalleProduct/$1');
-$routes->get('sendmail', 'HomeController::SendMail');
 $routes->get('conozcanos', 'ConozcanosController::index');
 $routes->get('productos', 'ProductosController::index');
+
+$routes->post('sendmail', 'HomeController::SendMail');
 
 /*
  * --------------------------------------------------------------------

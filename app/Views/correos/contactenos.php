@@ -150,8 +150,7 @@
                                                             <td style="width:100%;text-align:center;">
                                                                 <h1
                                                                     style="margin: 0; color: #555555; font-size: 23px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; line-height: 120%; text-align: center; direction: ltr; font-weight: 700; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">
-                                                                    <span class="tinyMce-placeholder">Jose Perez
-                                                                        necesita tu ayuda!</span></h1>
+                                                                    <span class="tinyMce-placeholder"><?=$nombre?> <?=$apellido?> necesita tu ayuda!</span></h1>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -185,8 +184,7 @@
                                                             <td>
                                                                 <h1
                                                                     style="margin: 0; color: #555555; font-size: 23px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; line-height: 120%; text-align: center; direction: ltr; font-weight: 700; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">
-                                                                    <span class="tinyMce-placeholder">Asunto:
-                                                                        consulta</span></h1>
+                                                                    <span class="tinyMce-placeholder">Asunto: <?=$asunto?></span></h1>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -220,11 +218,9 @@
                                                             <td>
                                                                 <div
                                                                     style="color:#000000;font-size:14px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-weight:400;line-height:120%;text-align:center;direction:ltr;letter-spacing:0px;">
-                                                                    <p style="margin: 0;">Lorem ipsum es el texto que se
-                                                                        usa habitualmente en diseño gráfico o de moda en
-                                                                        demostraciones de tipografías o de borradores de
-                                                                        diseño para probar el diseño visual antes de
-                                                                        insertar el texto final.</p>
+                                                                    <p style="margin: 0;">
+                                                                        <?=$detalles?>
+                                                                    </p>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -259,10 +255,11 @@
                                                             <td style="width:100%;text-align:center;">
                                                                 <h1
                                                                     style="margin: 0; color: #555555; font-size: 20px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; line-height: 120%; text-align: center; direction: ltr; font-weight: 700; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">
-                                                                    <span class="tinyMce-placeholder">Lo puedes
-                                                                        contactar atraves de:<br />Teléfono:
-                                                                        77593143<br />Correo
-                                                                        Electrónico:<br />jaimepalacios998@gmail.com</span>
+                                                                    <span class="tinyMce-placeholder">
+                                                                        Lo puedes contactar atraves de:<br />
+                                                                        Teléfono:<?=$phone?><br />
+                                                                        Correo Electrónico:<br /><?=$email?>
+                                                                    </span>
                                                                 </h1>
                                                             </td>
                                                         </tr>

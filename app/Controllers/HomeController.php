@@ -10,7 +10,6 @@ use App\Models\DetalleProductoModel;
 use App\Models\VitrinaProductModel;
 use App\Models\PaginaSeccionesModel;
 use App\Models\SeccionDetalleModel;
-use \Config\Services;
 
 class HomeController extends BaseController
 {
@@ -67,35 +66,36 @@ class HomeController extends BaseController
         }
     }
 
-    public function contactenenos(){
-        try {
-            $ContactoModel = new ContactoModel();
-            $CategoriasModel = new CategoriasModel();
-            $MarcasModel = new MarcasModel();
-            $paginaSeccionesModel = new PaginaSeccionesModel();
-            $seccionDetalleModel = new SeccionDetalleModel();
-            
-            $data['contactos'] = $ContactoModel->getDataContacto();
-            $data['categorias'] = $CategoriasModel->getDataCategorias();
-            $data['marcas'] = $MarcasModel->getDataMarcas();
-            $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+    public function contactenenos($enviado){
+        
+        $ContactoModel = new ContactoModel();
+        $CategoriasModel = new CategoriasModel();
+        $MarcasModel = new MarcasModel();
+        $paginaSeccionesModel = new PaginaSeccionesModel();
+        $seccionDetalleModel = new SeccionDetalleModel();
+        
+        $data['contactos'] = $ContactoModel->getDataContacto();
+        $data['categorias'] = $CategoriasModel->getDataCategorias();
+        $data['marcas'] = $MarcasModel->getDataMarcas();
+        $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
 
-            // Obtiene la seccion de siguenos (RRSS)
-            $elementos = array();
-            foreach($data['seccionesFooter'] as $seccion){
-                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-                foreach($seccionDetalle as $detalle){
-                    $elementos[] = $detalle;
-                }
+        // Obtiene la seccion de siguenos (RRSS)
+        $elementos = array();
+        foreach($data['seccionesFooter'] as $seccion){
+            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+            foreach($seccionDetalle as $detalle){
+                $elementos[] = $detalle;
             }
-            $data['elementosFooter'] = $elementos;
-            
-            echo view('head_foot/header',$data);
-            echo view('component/contactenos',$data);
-            echo view('head_foot/footer',$data);
-        } catch (\Throwable $th) {
-            echo $th;
         }
+        $data['elementosFooter'] = $elementos;
+        
+        echo view('head_foot/header',$data);
+        if(filter_var($enviado, FILTER_VALIDATE_BOOLEAN)===true){
+            $data['enviado'] = $enviado;
+        }
+        echo view('component/contactenos',$data);
+        echo view('head_foot/footer',$data);
+        
     }
 
     public function categoriaShow($idcate){
@@ -165,17 +165,33 @@ class HomeController extends BaseController
 
     }
     public function SendMail(){
-        try {
-            $message = view('correos/contactenos');
-            $email = Services::email();
-            $email->setFrom('contactenosnoreply@tecnomedica-sv.com', 'contactenosnoreply@tecnomedica-sv.com');
-            $email->setTo('jaimepalacios998@gmail.com');
-            $email->setSubject('Panel | Facturación Electrónica');
+
+            $nombre = $this->request->getPost('nombre');
+            $apellido = $this->request->getPost('apellido');
+            $email = $this->request->getPost('email');
+            $phone = $this->request->getPost('phone');
+            $asunto = $this->request->getPost('asunto');
+            $detalles = $this->request->getPost('comments');
+
+            $data['nombre'] = $nombre;
+            $data['apellido'] = $apellido;
+            $data['email'] = $email;
+            $data['phone'] = $phone;
+            $data['asunto'] = $asunto;
+            $data['detalles'] = $detalles;
+
+            $message = view('correos/contactenos', $data);
+            $email = service('email');
+            $email->setFrom('contactenosnoreply@tecnomedica-sv.com', 'contactenosnoreply');
+            $email->setTo('ventas@tecnomedica-sv.com');
+            $email->setSubject('Página Web | Formulario de contacto');
             $email->setMessage($message);//your message here
-            $email->send();
-        } catch (\Throwable $th) {
-            var_dump($th);
-        }
+            if (! $email->send(false)) {
+                // echo $email->printDebugger();
+            } else{
+                header('Location:'.base_url('/contactenos/enviado'));
+                exit();
+            }
     }
 
     public function productosDestacados(){
