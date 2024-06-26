@@ -1,3 +1,16 @@
+<?php 
+    $elementosBarraNavegacion = null;
+    $idSeccionBarraNavegacion = 8;
+
+    // Obtiene los elementos de la barra de navegacion
+    foreach($seccionesHeader as $seccionDetalle){
+        foreach($seccionDetalle as $detalle){
+            if($detalle['id_seccion']==$idSeccionBarraNavegacion)
+                $elementosBarraNavegacion[] = $detalle;
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,10 +86,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbars-host">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="<?=base_url()?>">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/conozcanos">Conózcanos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/productos"">Productos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/contactenos">Contáctenos</a></li>
+                        <?php if($elementosBarraNavegacion[0]['estado']==true){ ?>
+                            <li class="nav-item"><a class="nav-link" href="<?=base_url()?>"><?=$elementosBarraNavegacion[0]['valor']?></a></li>
+                        <?php } ?>
+                        <?php if($elementosBarraNavegacion[1]['estado']==true){ ?>
+                            <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/conozcanos"><?=$elementosBarraNavegacion[1]['valor']?></a></li>
+                        <?php } ?>
+                        <?php if($elementosBarraNavegacion[2]['estado']==true){ ?>
+                            <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/productos""><?=$elementosBarraNavegacion[2]['valor']?></a></li>
+                        <?php } ?>
+                        <?php if($elementosBarraNavegacion[3]['estado']==true){ ?>
+                            <li class="nav-item"><a class="nav-link" href="<?=base_url()?>/contactenos"><?=$elementosBarraNavegacion[3]['valor']?></a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>

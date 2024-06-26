@@ -11,6 +11,7 @@ class ProductosController extends BaseController
 {
     private int $idPagina = 1;
     private int $idPaginaFooter = 3;
+    private int $idPaginaHeader = 4;
 
     public function index()
     {
@@ -22,6 +23,7 @@ class ProductosController extends BaseController
         $data['categorias'] = $categoriasModel->getCategoriasActivasOrdenadas();
         $data['contactos'] = $ContactoModel->getDataContacto();
         $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
         $data['tituloSeccionCategorias'] = 'Categorías';
 
         // Obtiene la seccion de siguenos (RRSS)
@@ -34,8 +36,15 @@ class ProductosController extends BaseController
         }
         $data['elementosFooter'] = $elementos;
 
-        echo view('head_foot/header');
-        echo view('component/productos',$data);
-        echo view('head_foot/footer', $data);
+        // Obtiene las secciones de header
+        $elementos = array();
+        foreach($seccionesHeader as $seccion){
+            $seccionesDetalle[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+        }
+        $data['seccionesHeader'] = $seccionesDetalle;
+
+        return view('head_foot/header', $data)
+            .view('component/productos')
+            .view('head_foot/footer');
     }
 }

@@ -10,6 +10,7 @@ class ConozcanosController extends BaseController
 {
     private int $idPagina = 1;
     private int $idPaginaFooter = 3;
+    private int $idPaginaHeader = 4;
 
     public function index()
     {
@@ -20,6 +21,7 @@ class ConozcanosController extends BaseController
         $data['contactos'] = $ContactoModel->getDataContacto();
         $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
         $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
 
         $elementos = array();
         foreach($data['secciones'] as $seccion){
@@ -40,9 +42,16 @@ class ConozcanosController extends BaseController
         }
         $data['elementosFooter'] = $elementos;
 
+        // Obtiene las secciones de header
+        $elementos = array();
+        foreach($seccionesHeader as $seccion){
+            $seccionesDetalle[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+        }
+        $data['seccionesHeader'] = $seccionesDetalle;
 
-        echo view('head_foot/header');
-        echo view('component/conozcanos',$data);
-        echo view('head_foot/footer', $data);
+
+        return view('head_foot/header', $data)
+            .view('component/conozcanos')
+            .view('head_foot/footer');
     }
 }

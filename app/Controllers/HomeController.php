@@ -15,55 +15,61 @@ class HomeController extends BaseController
 {
     private int $idPagina = 2;
     private int $idPaginaFooter = 3;
+    private int $idPaginaHeader = 4;
 
     public function index()
     {
-        try {
-            $DetalleProductoModel = new DetalleProductoModel();
-            $HomeModel = new HomeModel();
-            $ContactoModel = new ContactoModel();
-            $CarouselModel = new CarouselModel();
-            $CategoriasModel = new CategoriasModel();
-            $MarcasModel = new MarcasModel();
-            $paginaSeccionesModel = new PaginaSeccionesModel();
-            $seccionDetalleModel = new SeccionDetalleModel();
 
-            $data['datos'] = $HomeModel->getDataHome();
-            $data['contactos'] = $ContactoModel->getDataContacto();
-            $data['categorias'] = $CategoriasModel->getCategoriasDestacadas();
-            $data['marcas'] = $MarcasModel->getDataMarcas();
-            $data['destacados'] = $DetalleProductoModel->getDestacadosActivos();
-            $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
-            $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
-            $data['tituloSeccionCategorias'] = 'Categorías Destacadas';
+        $DetalleProductoModel = new DetalleProductoModel();
+        $HomeModel = new HomeModel();
+        $ContactoModel = new ContactoModel();
+        $CarouselModel = new CarouselModel();
+        $CategoriasModel = new CategoriasModel();
+        $MarcasModel = new MarcasModel();
+        $paginaSeccionesModel = new PaginaSeccionesModel();
+        $seccionDetalleModel = new SeccionDetalleModel();
 
-            $elementos = array();
-            foreach($data['secciones'] as $seccion){
-                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-                foreach($seccionDetalle as $detalle){
-                    $elementos[] = $detalle;
-                }
+        $data['datos'] = $HomeModel->getDataHome();
+        $data['contactos'] = $ContactoModel->getDataContacto();
+        $data['categorias'] = $CategoriasModel->getCategoriasDestacadas();
+        $data['marcas'] = $MarcasModel->getDataMarcas();
+        $data['destacados'] = $DetalleProductoModel->getDestacadosActivos();
+        $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
+        $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
+        $data['tituloSeccionCategorias'] = 'Categorías Destacadas';
+
+        $elementos = array();
+        foreach($data['secciones'] as $seccion){
+            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+            foreach($seccionDetalle as $detalle){
+                $elementos[] = $detalle;
             }
-            $data['elementos'] = $elementos;
-
-            // Obtiene la seccion de siguenos (RRSS)
-            $elementos = array();
-            foreach($data['seccionesFooter'] as $seccion){
-                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-                foreach($seccionDetalle as $detalle){
-                    $elementos[] = $detalle;
-                }
-            }
-            $data['elementosFooter'] = $elementos;
-            
-            echo view('head_foot/header',$data);
-            echo view('component/home',$data);
-            echo view('component/productos',$data);
-            echo view('component/home/productos_destacados',$data);
-            echo view('head_foot/footer',$data);
-        } catch (\Throwable $th) {
-            echo $th;
         }
+        $data['elementos'] = $elementos;
+
+        // Obtiene la seccion de siguenos (RRSS)
+        $elementos = array();
+        foreach($data['seccionesFooter'] as $seccion){
+            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+            foreach($seccionDetalle as $detalle){
+                $elementos[] = $detalle;
+            }
+        }
+        $data['elementosFooter'] = $elementos;
+
+        // Obtiene las secciones de header
+        $elementos = array();
+        foreach($seccionesHeader as $seccion){
+            $seccionesDetalle[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+        }
+        $data['seccionesHeader'] = $seccionesDetalle;
+        
+        return view('head_foot/header', $data)
+            .view('component/home')
+            .view('component/productos')
+            .view('component/home/productos_destacados')
+            .view('head_foot/footer');
     }
 
     public function contactenenos($enviado){
@@ -78,6 +84,7 @@ class HomeController extends BaseController
         $data['categorias'] = $CategoriasModel->getDataCategorias();
         $data['marcas'] = $MarcasModel->getDataMarcas();
         $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
 
         // Obtiene la seccion de siguenos (RRSS)
         $elementos = array();
@@ -88,48 +95,61 @@ class HomeController extends BaseController
             }
         }
         $data['elementosFooter'] = $elementos;
+
+        // Obtiene las secciones de header
+        $elementos = array();
+        foreach($seccionesHeader as $seccion){
+            $seccionesDetalle[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+        }
+        $data['seccionesHeader'] = $seccionesDetalle;
         
-        echo view('head_foot/header',$data);
         if(filter_var($enviado, FILTER_VALIDATE_BOOLEAN)===true){
             $data['enviado'] = $enviado;
         }
-        echo view('component/contactenos',$data);
-        echo view('head_foot/footer',$data);
+
+        return view('head_foot/header', $data)
+            .view('component/contactenos')
+            .view('head_foot/footer');
         
     }
 
     public function categoriaShow($idcate){
-        try {
-            $VitrinaProductModel = new VitrinaProductModel();
-            $ContactoModel = new ContactoModel();
-            $CategoriasModel = new CategoriasModel();
-            $MarcasModel = new MarcasModel();
-            $paginaSeccionesModel = new PaginaSeccionesModel();
-            $seccionDetalleModel = new SeccionDetalleModel();
-            
-            $data['categoriaSelect'] = $CategoriasModel->getDataCategoriaSelect($idcate);
-            $data['productos'] = $VitrinaProductModel->getDataProductosActivos($idcate);
-            $data['contactos'] = $ContactoModel->getDataContacto();
-            $data['categorias'] = $CategoriasModel->getDataCategorias();
-            $data['marcas'] = $MarcasModel->getDataMarcas();
-            $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        
+        $VitrinaProductModel = new VitrinaProductModel();
+        $ContactoModel = new ContactoModel();
+        $CategoriasModel = new CategoriasModel();
+        $MarcasModel = new MarcasModel();
+        $paginaSeccionesModel = new PaginaSeccionesModel();
+        $seccionDetalleModel = new SeccionDetalleModel();
+        
+        $data['categoriaSelect'] = $CategoriasModel->getDataCategoriaSelect($idcate);
+        $data['productos'] = $VitrinaProductModel->getDataProductosActivos($idcate);
+        $data['contactos'] = $ContactoModel->getDataContacto();
+        $data['categorias'] = $CategoriasModel->getDataCategorias();
+        $data['marcas'] = $MarcasModel->getDataMarcas();
+        $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
 
-            // Obtiene la seccion de siguenos (RRSS)
-            $elementos = array();
-            foreach($data['seccionesFooter'] as $seccion){
-                $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-                foreach($seccionDetalle as $detalle){
-                    $elementos[] = $detalle;
-                }
+        // Obtiene la seccion de siguenos (RRSS)
+        $elementos = array();
+        foreach($data['seccionesFooter'] as $seccion){
+            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+            foreach($seccionDetalle as $detalle){
+                $elementos[] = $detalle;
             }
-            $data['elementosFooter'] = $elementos;
-            
-            echo view('head_foot/header',$data);
-            echo view('component/productos/vitrinaProducto',$data);
-            echo view('head_foot/footer',$data);
-        } catch (\Throwable $th) {
-            //throw $th;
         }
+        $data['elementosFooter'] = $elementos;
+
+        // Obtiene las secciones de header
+        $elementos = array();
+        foreach($seccionesHeader as $seccion){
+            $seccionesDetalle[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+        }
+        $data['seccionesHeader'] = $seccionesDetalle;
+        
+        return view('head_foot/header',$data)
+            .view('component/productos/vitrinaProducto')
+            .view('head_foot/footer');
     }
 
     public function detalleProduct($idproducto){
@@ -144,6 +164,7 @@ class HomeController extends BaseController
         $data['producto'] = $DetalleProductoModel->getDataActiveProductSelect($idproducto);
         $data['contactos'] = $ContactoModel->getDataContacto();
         $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
         
         if(empty($data['producto'])){
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -159,9 +180,16 @@ class HomeController extends BaseController
         }
         $data['elementosFooter'] = $elementos;
 
-        echo view('head_foot/header',$data);
-        echo view('component/productos/Detalleproduct',$data);
-        echo view('head_foot/footer',$data);
+        // Obtiene las secciones de header
+        $elementos = array();
+        foreach($seccionesHeader as $seccion){
+            $seccionesDetalle[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
+        }
+        $data['seccionesHeader'] = $seccionesDetalle;
+
+        return view('head_foot/header',$data)
+            .view('component/productos/Detalleproduct')
+            .view('head_foot/footer');
 
     }
     public function SendMail(){
