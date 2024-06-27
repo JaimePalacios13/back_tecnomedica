@@ -1,6 +1,6 @@
 <?php 
     $elementosSiguenos = array();
-    $idSeccionSiguenos = 7;
+    $idSeccionSiguenos = 5;
 
     // Obtiene los elementos de la barra de navegacion
     foreach($detallesFooter as $detalle){

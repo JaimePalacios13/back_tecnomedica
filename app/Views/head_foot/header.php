@@ -1,6 +1,6 @@
 <?php 
     $elementosBarraNavegacion = null;
-    $idSeccionBarraNavegacion = 8;
+    $idSeccionBarraNavegacion = 6;
 
     // Obtiene los elementos de la barra de navegacion
     foreach($seccionesHeader as $seccionDetalle){
