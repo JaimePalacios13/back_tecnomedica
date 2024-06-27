@@ -1,3 +1,16 @@
+<?php 
+    $elementosSiguenos = array();
+    $idSeccionSiguenos = 7;
+
+    // Obtiene los elementos de la barra de navegacion
+    foreach($detallesFooter as $detalle){
+        foreach($detalle as $elemento){
+            if($elemento['id_seccion']==$idSeccionSiguenos)
+                $elementosSiguenos[] = $elemento;
+        }
+    }
+?>
+
 <div class="parallax section dbcolor">
 </div><!-- end section -->
 
@@ -6,8 +19,8 @@
         <div class="row">
             <div class="col-sm col-md col-xs-12">
                 <div class="widget clearfix">
-                    <?php if(($elementosFooter[0]['estado']==="1") || $elementosFooter[1]['estado']==="1" ||
-                        ($elementosFooter[2]['estado']==="1") || ($elementosFooter[3]['estado']==="1") ) 
+                    <?php if(($elementosSiguenos[0]['estado']==="1") || $elementosSiguenos[1]['estado']==="1" ||
+                        ($elementosSiguenos[2]['estado']==="1") || ($elementosSiguenos[3]['estado']==="1") ) 
                         {
                     ?>
                         <div class="widget-title">
@@ -15,17 +28,20 @@
                         </div>
                         <div class="footer-icons">
                             <ul>
-                                <?php if($elementosFooter[0]['estado']==="1") { ?>
-                                    <li><a href="<?=$elementosFooter[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
+                                <?php if($elementosSiguenos[0]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosSiguenos[0]['valor']?>" target="_blank"><i  class="fab fa-facebook-f fa-2x" ></i></a></li>
                                 <?php } ?>
-                                <?php if($elementosFooter[1]['estado']==="1") { ?>
-                                    <li><a href="<?=$elementosFooter[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+                                <?php if($elementosSiguenos[1]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosSiguenos[1]['valor']?>" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
                                 <?php } ?>
-                                <?php if($elementosFooter[2]['estado']==="1") { ?>
-                                    <li><a href="<?=$elementosFooter[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
+                                <?php if($elementosSiguenos[2]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosSiguenos[2]['valor']?>" target="_blank"><i  class="fab fa-linkedin-in fa-2x" ></i></a></li>
                                 <?php } ?>
-                                <?php if($elementosFooter[3]['estado']==="1") { ?>
-                                    <li><a href="<?=$elementosFooter[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+                                <?php if($elementosSiguenos[3]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosSiguenos[3]['valor']?>" target="_blank"><i class="fab fa-whatsapp fa-2x"></i></a></li>
+                                <?php } ?>
+                                <?php if($elementosSiguenos[4]['estado']==="1") { ?>
+                                    <li><a href="<?=$elementosSiguenos[4]['valor']?>" target="_blank"><i class="fas fa-map-marker-alt fa-2x"></i></a></li>
                                 <?php } ?>
                             </ul>
                         </div>

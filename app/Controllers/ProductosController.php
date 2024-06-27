@@ -26,15 +26,11 @@ class ProductosController extends BaseController
         $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
         $data['tituloSeccionCategorias'] = 'Categorías';
 
-        // Obtiene la seccion de siguenos (RRSS)
-        $elementos = array();
+        // Obtiene los detalles de las secciones de footer
         foreach($data['seccionesFooter'] as $seccion){
-            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-            foreach($seccionDetalle as $detalle){
-                $elementos[] = $detalle;
-            }
+            $detallesFooter[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
         }
-        $data['elementosFooter'] = $elementos;
+        $data['detallesFooter'] = $detallesFooter;
 
         // Obtiene las secciones de header
         $elementos = array();

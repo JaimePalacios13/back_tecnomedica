@@ -35,7 +35,7 @@ class HomeController extends BaseController
         $data['marcas'] = $MarcasModel->getDataMarcas();
         $data['destacados'] = $DetalleProductoModel->getDestacadosActivos();
         $data['secciones'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPagina);
-        $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
+        $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter); //Obtiene las secciones de footer
         $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
         $data['tituloSeccionCategorias'] = 'Categorías Destacadas';
 
@@ -48,15 +48,11 @@ class HomeController extends BaseController
         }
         $data['elementos'] = $elementos;
 
-        // Obtiene la seccion de siguenos (RRSS)
-        $elementos = array();
+        // Obtiene los detalles de las secciones de footer
         foreach($data['seccionesFooter'] as $seccion){
-            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-            foreach($seccionDetalle as $detalle){
-                $elementos[] = $detalle;
-            }
+            $detallesFooter[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
         }
-        $data['elementosFooter'] = $elementos;
+        $data['detallesFooter'] = $detallesFooter;
 
         // Obtiene las secciones de header
         $elementos = array();
@@ -86,15 +82,11 @@ class HomeController extends BaseController
         $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
         $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
 
-        // Obtiene la seccion de siguenos (RRSS)
-        $elementos = array();
+        // Obtiene los detalles de las secciones de footer
         foreach($data['seccionesFooter'] as $seccion){
-            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-            foreach($seccionDetalle as $detalle){
-                $elementos[] = $detalle;
-            }
+            $detallesFooter[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
         }
-        $data['elementosFooter'] = $elementos;
+        $data['detallesFooter'] = $detallesFooter;
 
         // Obtiene las secciones de header
         $elementos = array();
@@ -130,15 +122,11 @@ class HomeController extends BaseController
         $data['seccionesFooter'] = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaFooter);
         $seccionesHeader = $paginaSeccionesModel->getDataPageSectionsByPage($this->idPaginaHeader);
 
-        // Obtiene la seccion de siguenos (RRSS)
-        $elementos = array();
+        // Obtiene los detalles de las secciones de footer
         foreach($data['seccionesFooter'] as $seccion){
-            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-            foreach($seccionDetalle as $detalle){
-                $elementos[] = $detalle;
-            }
+            $detallesFooter[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
         }
-        $data['elementosFooter'] = $elementos;
+        $data['detallesFooter'] = $detallesFooter;
 
         // Obtiene las secciones de header
         $elementos = array();
@@ -170,15 +158,11 @@ class HomeController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         
-        // Obtiene la seccion de siguenos (RRSS)
-        $elementos = array();
+        // Obtiene los detalles de las secciones de footer
         foreach($data['seccionesFooter'] as $seccion){
-            $seccionDetalle = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
-            foreach($seccionDetalle as $detalle){
-                $elementos[] = $detalle;
-            }
+            $detallesFooter[] = $seccionDetalleModel->getDataSectionDetailBySection($seccion['id_seccion']);
         }
-        $data['elementosFooter'] = $elementos;
+        $data['detallesFooter'] = $detallesFooter;
 
         // Obtiene las secciones de header
         $elementos = array();
