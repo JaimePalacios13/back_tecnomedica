@@ -57,7 +57,7 @@ class CategoriasController extends BaseController
                                 'is_image[fotografia]',
                                 'mime_in[fotografia,image/jpg,image/jpeg,image/gif,image/png]',
                                     'max_size[fotografia,150]',
-                                    'max_dims[fotografia,316,147]',
+                                    'max_dims[fotografia,350,190]',
                                 ],
                             ],
                     ];
@@ -165,7 +165,7 @@ class CategoriasController extends BaseController
                                 'is_image[fotografia_category]',
                                 'mime_in[fotografia_category,image/jpg,image/jpeg,image/gif,image/png]',
                                     'max_size[fotografia_category,150]',
-                                    'max_dims[fotografia_category,316,147]',
+                                    'max_dims[fotografia_category,350,190]',
                                 ],
                             ],
                     ];
